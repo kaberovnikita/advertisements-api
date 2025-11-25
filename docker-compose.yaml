@@ -9,7 +9,8 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - pg_data:/var/lib/postgresql/data
+     - ./migrations/create.sql:/docker-entrypoint-initdb.d/create.sql
+     - pg_data:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-postgres} -d ${DB_NAME:-ads}"]
       interval: 5s
