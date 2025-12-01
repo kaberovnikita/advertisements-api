@@ -1,21 +1,23 @@
 syntax = "proto3";
 
-package advertisements.storage;
+package advertisements_storage;
+
+option go_package = "./pkg/pb;avdertisement_storage";
 
 import "google/protobuf/timestamp.proto";
 
 service AdvertisementsStorage {
     // Ads
     rpc CreateAdvertisement (CreateAdvertisementRequest) returns (CreateAdvertisementResponse);
-    rpc GetAdvertisementById (GetAdvertisementByIdRequest) returns (GetAdvertisementByIdResposne);
+    rpc GetAdvertisementById (GetAdvertisementByIdRequest) returns (GetAdvertisementByIdResponse);
     rpc GetAllAdvertisements (GetAllAdvertisementsRequest) returns (GetAllAdvertisementsResponse);
     rpc UpdateAdvertisementById (UpdateAdvertisementByIdRequest) returns (UpdateAdvertisementByIdResponse);
     rpc DeleteAdvertisementByID (DeleteAdvertisementByIDRequest) returns (DeleteAdvertisementByIDResponse);
 
     // Categories
     rpc CreateCategory(CreateCategoryRequest) returns (CreateCategoryResponse);
-    rpc GetCategoryById(GetCategoryByIdRequest) returns (GetCategoryByIdResposne);
-    rpc GetCategoryByAlias(GetCategoryByAliasRequest) returns (GetCategoryByAliasResposne);
+    rpc GetCategoryById(GetCategoryByIdRequest) returns (GetCategoryByIdResponse);
+    rpc GetCategoryByAlias(GetCategoryByAliasRequest) returns (GetCategoryByAliasResponse);
     rpc GetAllCategories(GetAllCategoriesRequest) returns (GetAllCategoriesResponse);
     rpc UpdateCategoryById(UpdateCategoryByIdRequest) returns(UpdateCategoryByIdResponse);
     rpc DeleteCategoryById(DeleteCategoryByIDRequest) returns(DeleteCategoryByIDResponse);
@@ -63,7 +65,7 @@ message GetAdvertisementByIdRequest{
     int64 id = 1;
 }
 
-message GetAdvertisementByIdResposne{
+message GetAdvertisementByIdResponse{
     Advertisement advertisement = 1;
 }
 
@@ -108,7 +110,7 @@ message GetCategoryByIdRequest{
     int64 id = 1;
 }
 
-message GetCategoryByIdResposne{
+message GetCategoryByIdResponse{
     Category category = 1;
 }
 
@@ -116,7 +118,7 @@ message GetCategoryByAliasRequest{
     string alias = 1;
 }
 
-message GetCategoryByAliasResposne{
+message GetCategoryByAliasResponse{
     Category category = 1;
 }
 
@@ -212,5 +214,5 @@ message SearchAdvertisementByTitleRequest{
 }
 
 message SearchAdvertisementByTitleResponse{
-    Advertisement advertisement = 1;
+   repeated Advertisement advertisement = 1;
 }
