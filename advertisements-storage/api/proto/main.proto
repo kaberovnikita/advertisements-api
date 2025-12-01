@@ -25,8 +25,11 @@ service AdvertisementsStorage {
     rpc LoginUser(LoginUserRequest) returns (LoginUserResponse);
     rpc GetAllUsers(GetAllUsersRequest) returns (GetAllUsersResponse);
     rpc GetUserByID(GetUserByIDRequest) returns (GetUserByIdResponse);
-    rpc UpdateUserById (UpdateUserByIdRequst) returns (UpdateUserByIdResponse);
+    rpc UpdateUserById (UpdateUserByIdRequest) returns (UpdateUserByIdResponse);
     rpc DeleteUserById (DeleteUserByIdRequest) returns (DeleteAdvertisementByIDResponse);
+
+    // Search
+    rpc SearchAdvertisementByTitle(SearchAdvertisementByTitleRequest) returns (SearchAdvertisementByTitleResponse);
 };
 
 // === Ads ===
@@ -188,7 +191,7 @@ message GetUserByIdResponse {
     User user = 1;
 }
 
-message UpdateUserByIdRequst{
+message UpdateUserByIdRequest{
     int64 id = 1;
 }
 
@@ -201,3 +204,13 @@ message DeleteUserByIdRequest{
 }
 
 message DeleteUserByIdResponse{}
+
+// === Search ===
+
+message SearchAdvertisementByTitleRequest{
+    string title = 1;
+}
+
+message SearchAdvertisementByTitleResponse{
+    Advertisement advertisement = 1;
+}
