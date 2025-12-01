@@ -1,0 +1,61 @@
+syntax = "proto3";
+
+package advertisements.storage;
+
+import "google/protobuf/timestamp.proto";
+
+service AdvertisementsStorage {
+    // Ads
+    rpc CreateAdvertisement (CreateAdvertisementRequest) returns (CreateAdvertisementResponse);
+    rpc GetAdvertisementById (GetAdvertisementByIdRequest) returns (GetAdvertisementByIdResposne);
+    rpc GetAllAdvertisements (GetAllAdvertisementsRequest) returns (GetAllAdvertisementsResponse);
+    rpc UpdateAdvertisementById (UpdateAdvertisementByIdRequest) returns (UpdateAdvertisementByIdResponse);
+    rpc DeleteAdvertisementByID (DeleteAdvertisementByIDRequest) returns (DeleteAdvertisementByIDResponse);
+};
+
+message Advertisement {
+    int64 id = 1;
+    string title = 2;
+    string description = 3;
+    double price = 4;
+    string currency = 5;
+    google.protobuf.Timestamp published_at = 6;
+    int64 category_id = 7;
+    int64 user_id = 8;
+};
+
+message CreateAdvertisementRequest {
+    Advertisement advertisement = 1;
+};
+
+message CreateAdvertisementResponse {
+    Advertisement advertisement = 1;
+};
+
+message GetAdvertisementByIdRequest{
+    int64 id = 1;
+};
+
+message GetAdvertisementByIdResposne{
+    Advertisement advertisement = 1;
+};
+
+message GetAllAdvertisementsRequest{};
+
+message GetAllAdvertisementsResponse{
+    repeated Advertisement advertisement = 1;
+};
+
+message UpdateAdvertisementByIdRequest{
+    int64 id = 1;
+};
+
+message UpdateAdvertisementByIdResponse{
+    Advertisement advertisement = 1;
+};
+
+message DeleteAdvertisementByIDRequest{
+    int64 id = 1;
+};
+
+message DeleteAdvertisementByIDResponse{};
