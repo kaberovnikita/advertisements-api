@@ -75,9 +75,10 @@ type Advertisement struct {
 	Description   string                 `protobuf:"bytes,3,opt,name=description,proto3" json:"description,omitempty"`
 	Price         float64                `protobuf:"fixed64,4,opt,name=price,proto3" json:"price,omitempty"`
 	Currency      string                 `protobuf:"bytes,5,opt,name=currency,proto3" json:"currency,omitempty"`
-	PublishedAt   *timestamppb.Timestamp `protobuf:"bytes,6,opt,name=published_at,json=publishedAt,proto3" json:"published_at,omitempty"`
-	CategoryId    int64                  `protobuf:"varint,7,opt,name=category_id,json=categoryId,proto3" json:"category_id,omitempty"`
-	UserId        int64                  `protobuf:"varint,8,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	CategoryId    int64                  `protobuf:"varint,6,opt,name=category_id,json=categoryId,proto3" json:"category_id,omitempty"`
+	UserId        int64                  `protobuf:"varint,7,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	CreatedAt     *timestamppb.Timestamp `protobuf:"bytes,8,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	UpdatedAt     *timestamppb.Timestamp `protobuf:"bytes,9,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -147,13 +148,6 @@ func (x *Advertisement) GetCurrency() string {
 	return ""
 }
 
-func (x *Advertisement) GetPublishedAt() *timestamppb.Timestamp {
-	if x != nil {
-		return x.PublishedAt
-	}
-	return nil
-}
-
 func (x *Advertisement) GetCategoryId() int64 {
 	if x != nil {
 		return x.CategoryId
@@ -168,15 +162,28 @@ func (x *Advertisement) GetUserId() int64 {
 	return 0
 }
 
+func (x *Advertisement) GetCreatedAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.CreatedAt
+	}
+	return nil
+}
+
+func (x *Advertisement) GetUpdatedAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.UpdatedAt
+	}
+	return nil
+}
+
 type CreateAdvertisementRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Title         string                 `protobuf:"bytes,1,opt,name=title,proto3" json:"title,omitempty"`
 	Description   string                 `protobuf:"bytes,2,opt,name=description,proto3" json:"description,omitempty"`
 	Price         float64                `protobuf:"fixed64,3,opt,name=price,proto3" json:"price,omitempty"`
 	Currency      string                 `protobuf:"bytes,4,opt,name=currency,proto3" json:"currency,omitempty"`
-	PublishedAt   *timestamppb.Timestamp `protobuf:"bytes,5,opt,name=published_at,json=publishedAt,proto3" json:"published_at,omitempty"`
-	CategoryId    int64                  `protobuf:"varint,6,opt,name=category_id,json=categoryId,proto3" json:"category_id,omitempty"`
-	UserId        int64                  `protobuf:"varint,7,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	CategoryId    int64                  `protobuf:"varint,5,opt,name=category_id,json=categoryId,proto3" json:"category_id,omitempty"`
+	UserId        int64                  `protobuf:"varint,6,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -239,13 +246,6 @@ func (x *CreateAdvertisementRequest) GetCurrency() string {
 	return ""
 }
 
-func (x *CreateAdvertisementRequest) GetPublishedAt() *timestamppb.Timestamp {
-	if x != nil {
-		return x.PublishedAt
-	}
-	return nil
-}
-
 func (x *CreateAdvertisementRequest) GetCategoryId() int64 {
 	if x != nil {
 		return x.CategoryId
@@ -262,7 +262,7 @@ func (x *CreateAdvertisementRequest) GetUserId() int64 {
 
 type CreateAdvertisementResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Advertisement *Advertisement         `protobuf:"bytes,1,opt,name=advertisement,proto3" json:"advertisement,omitempty"`
+	Id            int64                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -297,11 +297,11 @@ func (*CreateAdvertisementResponse) Descriptor() ([]byte, []int) {
 	return file_advertisements_storage_proto_rawDescGZIP(), []int{2}
 }
 
-func (x *CreateAdvertisementResponse) GetAdvertisement() *Advertisement {
+func (x *CreateAdvertisementResponse) GetId() int64 {
 	if x != nil {
-		return x.Advertisement
+		return x.Id
 	}
-	return nil
+	return 0
 }
 
 type GetAdvertisementByIdRequest struct {
@@ -475,6 +475,11 @@ func (x *GetAllAdvertisementsResponse) GetAdvertisements() []*Advertisement {
 type UpdateAdvertisementByIdRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Id            int64                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Title         string                 `protobuf:"bytes,2,opt,name=title,proto3" json:"title,omitempty"`
+	Description   string                 `protobuf:"bytes,3,opt,name=description,proto3" json:"description,omitempty"`
+	Price         float64                `protobuf:"fixed64,4,opt,name=price,proto3" json:"price,omitempty"`
+	Currency      string                 `protobuf:"bytes,5,opt,name=currency,proto3" json:"currency,omitempty"`
+	CategoryId    int64                  `protobuf:"varint,6,opt,name=category_id,json=categoryId,proto3" json:"category_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -512,6 +517,41 @@ func (*UpdateAdvertisementByIdRequest) Descriptor() ([]byte, []int) {
 func (x *UpdateAdvertisementByIdRequest) GetId() int64 {
 	if x != nil {
 		return x.Id
+	}
+	return 0
+}
+
+func (x *UpdateAdvertisementByIdRequest) GetTitle() string {
+	if x != nil {
+		return x.Title
+	}
+	return ""
+}
+
+func (x *UpdateAdvertisementByIdRequest) GetDescription() string {
+	if x != nil {
+		return x.Description
+	}
+	return ""
+}
+
+func (x *UpdateAdvertisementByIdRequest) GetPrice() float64 {
+	if x != nil {
+		return x.Price
+	}
+	return 0
+}
+
+func (x *UpdateAdvertisementByIdRequest) GetCurrency() string {
+	if x != nil {
+		return x.Currency
+	}
+	return ""
+}
+
+func (x *UpdateAdvertisementByIdRequest) GetCategoryId() int64 {
+	if x != nil {
+		return x.CategoryId
 	}
 	return 0
 }
@@ -2124,37 +2164,45 @@ var File_advertisements_storage_proto protoreflect.FileDescriptor
 
 const file_advertisements_storage_proto_rawDesc = "" +
 	"\n" +
-	"\x1cadvertisements_storage.proto\x12\x16advertisements_storage\x1a\x1fgoogle/protobuf/timestamp.proto\"\x82\x02\n" +
+	"\x1cadvertisements_storage.proto\x12\x16advertisements_storage\x1a\x1fgoogle/protobuf/timestamp.proto\"\xb9\x02\n" +
 	"\rAdvertisement\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x03R\x02id\x12\x14\n" +
 	"\x05title\x18\x02 \x01(\tR\x05title\x12 \n" +
 	"\vdescription\x18\x03 \x01(\tR\vdescription\x12\x14\n" +
 	"\x05price\x18\x04 \x01(\x01R\x05price\x12\x1a\n" +
-	"\bcurrency\x18\x05 \x01(\tR\bcurrency\x12=\n" +
-	"\fpublished_at\x18\x06 \x01(\v2\x1a.google.protobuf.TimestampR\vpublishedAt\x12\x1f\n" +
-	"\vcategory_id\x18\a \x01(\x03R\n" +
+	"\bcurrency\x18\x05 \x01(\tR\bcurrency\x12\x1f\n" +
+	"\vcategory_id\x18\x06 \x01(\x03R\n" +
 	"categoryId\x12\x17\n" +
-	"\auser_id\x18\b \x01(\x03R\x06userId\"\xff\x01\n" +
+	"\auser_id\x18\a \x01(\x03R\x06userId\x129\n" +
+	"\n" +
+	"created_at\x18\b \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\x129\n" +
+	"\n" +
+	"updated_at\x18\t \x01(\v2\x1a.google.protobuf.TimestampR\tupdatedAt\"\xc0\x01\n" +
 	"\x1aCreateAdvertisementRequest\x12\x14\n" +
 	"\x05title\x18\x01 \x01(\tR\x05title\x12 \n" +
 	"\vdescription\x18\x02 \x01(\tR\vdescription\x12\x14\n" +
 	"\x05price\x18\x03 \x01(\x01R\x05price\x12\x1a\n" +
-	"\bcurrency\x18\x04 \x01(\tR\bcurrency\x12=\n" +
-	"\fpublished_at\x18\x05 \x01(\v2\x1a.google.protobuf.TimestampR\vpublishedAt\x12\x1f\n" +
-	"\vcategory_id\x18\x06 \x01(\x03R\n" +
+	"\bcurrency\x18\x04 \x01(\tR\bcurrency\x12\x1f\n" +
+	"\vcategory_id\x18\x05 \x01(\x03R\n" +
 	"categoryId\x12\x17\n" +
-	"\auser_id\x18\a \x01(\x03R\x06userId\"j\n" +
-	"\x1bCreateAdvertisementResponse\x12K\n" +
-	"\radvertisement\x18\x01 \x01(\v2%.advertisements_storage.AdvertisementR\radvertisement\"-\n" +
+	"\auser_id\x18\x06 \x01(\x03R\x06userId\"-\n" +
+	"\x1bCreateAdvertisementResponse\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\x03R\x02id\"-\n" +
 	"\x1bGetAdvertisementByIdRequest\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x03R\x02id\"k\n" +
 	"\x1cGetAdvertisementByIdResponse\x12K\n" +
 	"\radvertisement\x18\x01 \x01(\v2%.advertisements_storage.AdvertisementR\radvertisement\"\x1d\n" +
 	"\x1bGetAllAdvertisementsRequest\"m\n" +
 	"\x1cGetAllAdvertisementsResponse\x12M\n" +
-	"\x0eadvertisements\x18\x01 \x03(\v2%.advertisements_storage.AdvertisementR\x0eadvertisements\"0\n" +
+	"\x0eadvertisements\x18\x01 \x03(\v2%.advertisements_storage.AdvertisementR\x0eadvertisements\"\xbb\x01\n" +
 	"\x1eUpdateAdvertisementByIdRequest\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\x03R\x02id\"n\n" +
+	"\x02id\x18\x01 \x01(\x03R\x02id\x12\x14\n" +
+	"\x05title\x18\x02 \x01(\tR\x05title\x12 \n" +
+	"\vdescription\x18\x03 \x01(\tR\vdescription\x12\x14\n" +
+	"\x05price\x18\x04 \x01(\x01R\x05price\x12\x1a\n" +
+	"\bcurrency\x18\x05 \x01(\tR\bcurrency\x12\x1f\n" +
+	"\vcategory_id\x18\x06 \x01(\x03R\n" +
+	"categoryId\"n\n" +
 	"\x1fUpdateAdvertisementByIdResponse\x12K\n" +
 	"\radvertisement\x18\x01 \x01(\v2%.advertisements_storage.AdvertisementR\radvertisement\"0\n" +
 	"\x1eDeleteAdvertisementByIDRequest\x12\x0e\n" +
@@ -2336,71 +2384,70 @@ var file_advertisements_storage_proto_goTypes = []any{
 	(*timestamppb.Timestamp)(nil),              // 42: google.protobuf.Timestamp
 }
 var file_advertisements_storage_proto_depIdxs = []int32{
-	42, // 0: advertisements_storage.Advertisement.published_at:type_name -> google.protobuf.Timestamp
-	42, // 1: advertisements_storage.CreateAdvertisementRequest.published_at:type_name -> google.protobuf.Timestamp
-	1,  // 2: advertisements_storage.CreateAdvertisementResponse.advertisement:type_name -> advertisements_storage.Advertisement
-	1,  // 3: advertisements_storage.GetAdvertisementByIdResponse.advertisement:type_name -> advertisements_storage.Advertisement
-	1,  // 4: advertisements_storage.GetAllAdvertisementsResponse.advertisements:type_name -> advertisements_storage.Advertisement
-	1,  // 5: advertisements_storage.UpdateAdvertisementByIdResponse.advertisement:type_name -> advertisements_storage.Advertisement
-	42, // 6: advertisements_storage.Category.created_at:type_name -> google.protobuf.Timestamp
-	42, // 7: advertisements_storage.Category.updated_at:type_name -> google.protobuf.Timestamp
-	12, // 8: advertisements_storage.GetCategoryByIdResponse.category:type_name -> advertisements_storage.Category
-	12, // 9: advertisements_storage.GetCategoryByAliasResponse.category:type_name -> advertisements_storage.Category
-	12, // 10: advertisements_storage.GetAllCategoriesResponse.categories:type_name -> advertisements_storage.Category
-	12, // 11: advertisements_storage.UpdateCategoryByIdResponse.category:type_name -> advertisements_storage.Category
-	0,  // 12: advertisements_storage.User.role:type_name -> advertisements_storage.UserRole
-	42, // 13: advertisements_storage.User.created_at:type_name -> google.protobuf.Timestamp
-	42, // 14: advertisements_storage.User.updated_at:type_name -> google.protobuf.Timestamp
-	0,  // 15: advertisements_storage.RegisterUserRequest.role:type_name -> advertisements_storage.UserRole
-	25, // 16: advertisements_storage.GetAllUsersResponse.users:type_name -> advertisements_storage.User
-	25, // 17: advertisements_storage.GetUserByEmailResponse.user:type_name -> advertisements_storage.User
-	25, // 18: advertisements_storage.GetUserByIdResponse.user:type_name -> advertisements_storage.User
-	0,  // 19: advertisements_storage.UpdateUserByIdRequest.role:type_name -> advertisements_storage.UserRole
-	25, // 20: advertisements_storage.UpdateUserByIdResponse.user:type_name -> advertisements_storage.User
-	1,  // 21: advertisements_storage.SearchAdvertisementByTitleResponse.advertisement:type_name -> advertisements_storage.Advertisement
-	2,  // 22: advertisements_storage.AdvertisementsStorage.CreateAdvertisement:input_type -> advertisements_storage.CreateAdvertisementRequest
-	4,  // 23: advertisements_storage.AdvertisementsStorage.GetAdvertisementById:input_type -> advertisements_storage.GetAdvertisementByIdRequest
-	6,  // 24: advertisements_storage.AdvertisementsStorage.GetAllAdvertisements:input_type -> advertisements_storage.GetAllAdvertisementsRequest
-	8,  // 25: advertisements_storage.AdvertisementsStorage.UpdateAdvertisementById:input_type -> advertisements_storage.UpdateAdvertisementByIdRequest
-	10, // 26: advertisements_storage.AdvertisementsStorage.DeleteAdvertisementByID:input_type -> advertisements_storage.DeleteAdvertisementByIDRequest
-	13, // 27: advertisements_storage.AdvertisementsStorage.CreateCategory:input_type -> advertisements_storage.CreateCategoryRequest
-	15, // 28: advertisements_storage.AdvertisementsStorage.GetCategoryById:input_type -> advertisements_storage.GetCategoryByIdRequest
-	17, // 29: advertisements_storage.AdvertisementsStorage.GetCategoryByAlias:input_type -> advertisements_storage.GetCategoryByAliasRequest
-	19, // 30: advertisements_storage.AdvertisementsStorage.GetAllCategories:input_type -> advertisements_storage.GetAllCategoriesRequest
-	21, // 31: advertisements_storage.AdvertisementsStorage.UpdateCategoryById:input_type -> advertisements_storage.UpdateCategoryByIdRequest
-	23, // 32: advertisements_storage.AdvertisementsStorage.DeleteCategoryById:input_type -> advertisements_storage.DeleteCategoryByIDRequest
-	26, // 33: advertisements_storage.AdvertisementsStorage.RegisterUser:input_type -> advertisements_storage.RegisterUserRequest
-	28, // 34: advertisements_storage.AdvertisementsStorage.LoginUser:input_type -> advertisements_storage.LoginUserRequest
-	30, // 35: advertisements_storage.AdvertisementsStorage.GetAllUsers:input_type -> advertisements_storage.GetAllUsersRequest
-	34, // 36: advertisements_storage.AdvertisementsStorage.GetUserByID:input_type -> advertisements_storage.GetUserByIDRequest
-	32, // 37: advertisements_storage.AdvertisementsStorage.GetUserByEmail:input_type -> advertisements_storage.GetUserByEmailRequest
-	36, // 38: advertisements_storage.AdvertisementsStorage.UpdateUserById:input_type -> advertisements_storage.UpdateUserByIdRequest
-	38, // 39: advertisements_storage.AdvertisementsStorage.DeleteUserById:input_type -> advertisements_storage.DeleteUserByIdRequest
-	40, // 40: advertisements_storage.AdvertisementsStorage.SearchAdvertisementByTitle:input_type -> advertisements_storage.SearchAdvertisementByTitleRequest
-	3,  // 41: advertisements_storage.AdvertisementsStorage.CreateAdvertisement:output_type -> advertisements_storage.CreateAdvertisementResponse
-	5,  // 42: advertisements_storage.AdvertisementsStorage.GetAdvertisementById:output_type -> advertisements_storage.GetAdvertisementByIdResponse
-	7,  // 43: advertisements_storage.AdvertisementsStorage.GetAllAdvertisements:output_type -> advertisements_storage.GetAllAdvertisementsResponse
-	9,  // 44: advertisements_storage.AdvertisementsStorage.UpdateAdvertisementById:output_type -> advertisements_storage.UpdateAdvertisementByIdResponse
-	11, // 45: advertisements_storage.AdvertisementsStorage.DeleteAdvertisementByID:output_type -> advertisements_storage.DeleteAdvertisementByIDResponse
-	14, // 46: advertisements_storage.AdvertisementsStorage.CreateCategory:output_type -> advertisements_storage.CreateCategoryResponse
-	16, // 47: advertisements_storage.AdvertisementsStorage.GetCategoryById:output_type -> advertisements_storage.GetCategoryByIdResponse
-	18, // 48: advertisements_storage.AdvertisementsStorage.GetCategoryByAlias:output_type -> advertisements_storage.GetCategoryByAliasResponse
-	20, // 49: advertisements_storage.AdvertisementsStorage.GetAllCategories:output_type -> advertisements_storage.GetAllCategoriesResponse
-	22, // 50: advertisements_storage.AdvertisementsStorage.UpdateCategoryById:output_type -> advertisements_storage.UpdateCategoryByIdResponse
-	24, // 51: advertisements_storage.AdvertisementsStorage.DeleteCategoryById:output_type -> advertisements_storage.DeleteCategoryByIDResponse
-	27, // 52: advertisements_storage.AdvertisementsStorage.RegisterUser:output_type -> advertisements_storage.RegisterUserResponse
-	29, // 53: advertisements_storage.AdvertisementsStorage.LoginUser:output_type -> advertisements_storage.LoginUserResponse
-	31, // 54: advertisements_storage.AdvertisementsStorage.GetAllUsers:output_type -> advertisements_storage.GetAllUsersResponse
-	35, // 55: advertisements_storage.AdvertisementsStorage.GetUserByID:output_type -> advertisements_storage.GetUserByIdResponse
-	33, // 56: advertisements_storage.AdvertisementsStorage.GetUserByEmail:output_type -> advertisements_storage.GetUserByEmailResponse
-	37, // 57: advertisements_storage.AdvertisementsStorage.UpdateUserById:output_type -> advertisements_storage.UpdateUserByIdResponse
-	11, // 58: advertisements_storage.AdvertisementsStorage.DeleteUserById:output_type -> advertisements_storage.DeleteAdvertisementByIDResponse
-	41, // 59: advertisements_storage.AdvertisementsStorage.SearchAdvertisementByTitle:output_type -> advertisements_storage.SearchAdvertisementByTitleResponse
-	41, // [41:60] is the sub-list for method output_type
-	22, // [22:41] is the sub-list for method input_type
-	22, // [22:22] is the sub-list for extension type_name
-	22, // [22:22] is the sub-list for extension extendee
-	0,  // [0:22] is the sub-list for field type_name
+	42, // 0: advertisements_storage.Advertisement.created_at:type_name -> google.protobuf.Timestamp
+	42, // 1: advertisements_storage.Advertisement.updated_at:type_name -> google.protobuf.Timestamp
+	1,  // 2: advertisements_storage.GetAdvertisementByIdResponse.advertisement:type_name -> advertisements_storage.Advertisement
+	1,  // 3: advertisements_storage.GetAllAdvertisementsResponse.advertisements:type_name -> advertisements_storage.Advertisement
+	1,  // 4: advertisements_storage.UpdateAdvertisementByIdResponse.advertisement:type_name -> advertisements_storage.Advertisement
+	42, // 5: advertisements_storage.Category.created_at:type_name -> google.protobuf.Timestamp
+	42, // 6: advertisements_storage.Category.updated_at:type_name -> google.protobuf.Timestamp
+	12, // 7: advertisements_storage.GetCategoryByIdResponse.category:type_name -> advertisements_storage.Category
+	12, // 8: advertisements_storage.GetCategoryByAliasResponse.category:type_name -> advertisements_storage.Category
+	12, // 9: advertisements_storage.GetAllCategoriesResponse.categories:type_name -> advertisements_storage.Category
+	12, // 10: advertisements_storage.UpdateCategoryByIdResponse.category:type_name -> advertisements_storage.Category
+	0,  // 11: advertisements_storage.User.role:type_name -> advertisements_storage.UserRole
+	42, // 12: advertisements_storage.User.created_at:type_name -> google.protobuf.Timestamp
+	42, // 13: advertisements_storage.User.updated_at:type_name -> google.protobuf.Timestamp
+	0,  // 14: advertisements_storage.RegisterUserRequest.role:type_name -> advertisements_storage.UserRole
+	25, // 15: advertisements_storage.GetAllUsersResponse.users:type_name -> advertisements_storage.User
+	25, // 16: advertisements_storage.GetUserByEmailResponse.user:type_name -> advertisements_storage.User
+	25, // 17: advertisements_storage.GetUserByIdResponse.user:type_name -> advertisements_storage.User
+	0,  // 18: advertisements_storage.UpdateUserByIdRequest.role:type_name -> advertisements_storage.UserRole
+	25, // 19: advertisements_storage.UpdateUserByIdResponse.user:type_name -> advertisements_storage.User
+	1,  // 20: advertisements_storage.SearchAdvertisementByTitleResponse.advertisement:type_name -> advertisements_storage.Advertisement
+	2,  // 21: advertisements_storage.AdvertisementsStorage.CreateAdvertisement:input_type -> advertisements_storage.CreateAdvertisementRequest
+	4,  // 22: advertisements_storage.AdvertisementsStorage.GetAdvertisementById:input_type -> advertisements_storage.GetAdvertisementByIdRequest
+	6,  // 23: advertisements_storage.AdvertisementsStorage.GetAllAdvertisements:input_type -> advertisements_storage.GetAllAdvertisementsRequest
+	8,  // 24: advertisements_storage.AdvertisementsStorage.UpdateAdvertisementById:input_type -> advertisements_storage.UpdateAdvertisementByIdRequest
+	10, // 25: advertisements_storage.AdvertisementsStorage.DeleteAdvertisementByID:input_type -> advertisements_storage.DeleteAdvertisementByIDRequest
+	13, // 26: advertisements_storage.AdvertisementsStorage.CreateCategory:input_type -> advertisements_storage.CreateCategoryRequest
+	15, // 27: advertisements_storage.AdvertisementsStorage.GetCategoryById:input_type -> advertisements_storage.GetCategoryByIdRequest
+	17, // 28: advertisements_storage.AdvertisementsStorage.GetCategoryByAlias:input_type -> advertisements_storage.GetCategoryByAliasRequest
+	19, // 29: advertisements_storage.AdvertisementsStorage.GetAllCategories:input_type -> advertisements_storage.GetAllCategoriesRequest
+	21, // 30: advertisements_storage.AdvertisementsStorage.UpdateCategoryById:input_type -> advertisements_storage.UpdateCategoryByIdRequest
+	23, // 31: advertisements_storage.AdvertisementsStorage.DeleteCategoryById:input_type -> advertisements_storage.DeleteCategoryByIDRequest
+	26, // 32: advertisements_storage.AdvertisementsStorage.RegisterUser:input_type -> advertisements_storage.RegisterUserRequest
+	28, // 33: advertisements_storage.AdvertisementsStorage.LoginUser:input_type -> advertisements_storage.LoginUserRequest
+	30, // 34: advertisements_storage.AdvertisementsStorage.GetAllUsers:input_type -> advertisements_storage.GetAllUsersRequest
+	34, // 35: advertisements_storage.AdvertisementsStorage.GetUserByID:input_type -> advertisements_storage.GetUserByIDRequest
+	32, // 36: advertisements_storage.AdvertisementsStorage.GetUserByEmail:input_type -> advertisements_storage.GetUserByEmailRequest
+	36, // 37: advertisements_storage.AdvertisementsStorage.UpdateUserById:input_type -> advertisements_storage.UpdateUserByIdRequest
+	38, // 38: advertisements_storage.AdvertisementsStorage.DeleteUserById:input_type -> advertisements_storage.DeleteUserByIdRequest
+	40, // 39: advertisements_storage.AdvertisementsStorage.SearchAdvertisementByTitle:input_type -> advertisements_storage.SearchAdvertisementByTitleRequest
+	3,  // 40: advertisements_storage.AdvertisementsStorage.CreateAdvertisement:output_type -> advertisements_storage.CreateAdvertisementResponse
+	5,  // 41: advertisements_storage.AdvertisementsStorage.GetAdvertisementById:output_type -> advertisements_storage.GetAdvertisementByIdResponse
+	7,  // 42: advertisements_storage.AdvertisementsStorage.GetAllAdvertisements:output_type -> advertisements_storage.GetAllAdvertisementsResponse
+	9,  // 43: advertisements_storage.AdvertisementsStorage.UpdateAdvertisementById:output_type -> advertisements_storage.UpdateAdvertisementByIdResponse
+	11, // 44: advertisements_storage.AdvertisementsStorage.DeleteAdvertisementByID:output_type -> advertisements_storage.DeleteAdvertisementByIDResponse
+	14, // 45: advertisements_storage.AdvertisementsStorage.CreateCategory:output_type -> advertisements_storage.CreateCategoryResponse
+	16, // 46: advertisements_storage.AdvertisementsStorage.GetCategoryById:output_type -> advertisements_storage.GetCategoryByIdResponse
+	18, // 47: advertisements_storage.AdvertisementsStorage.GetCategoryByAlias:output_type -> advertisements_storage.GetCategoryByAliasResponse
+	20, // 48: advertisements_storage.AdvertisementsStorage.GetAllCategories:output_type -> advertisements_storage.GetAllCategoriesResponse
+	22, // 49: advertisements_storage.AdvertisementsStorage.UpdateCategoryById:output_type -> advertisements_storage.UpdateCategoryByIdResponse
+	24, // 50: advertisements_storage.AdvertisementsStorage.DeleteCategoryById:output_type -> advertisements_storage.DeleteCategoryByIDResponse
+	27, // 51: advertisements_storage.AdvertisementsStorage.RegisterUser:output_type -> advertisements_storage.RegisterUserResponse
+	29, // 52: advertisements_storage.AdvertisementsStorage.LoginUser:output_type -> advertisements_storage.LoginUserResponse
+	31, // 53: advertisements_storage.AdvertisementsStorage.GetAllUsers:output_type -> advertisements_storage.GetAllUsersResponse
+	35, // 54: advertisements_storage.AdvertisementsStorage.GetUserByID:output_type -> advertisements_storage.GetUserByIdResponse
+	33, // 55: advertisements_storage.AdvertisementsStorage.GetUserByEmail:output_type -> advertisements_storage.GetUserByEmailResponse
+	37, // 56: advertisements_storage.AdvertisementsStorage.UpdateUserById:output_type -> advertisements_storage.UpdateUserByIdResponse
+	11, // 57: advertisements_storage.AdvertisementsStorage.DeleteUserById:output_type -> advertisements_storage.DeleteAdvertisementByIDResponse
+	41, // 58: advertisements_storage.AdvertisementsStorage.SearchAdvertisementByTitle:output_type -> advertisements_storage.SearchAdvertisementByTitleResponse
+	40, // [40:59] is the sub-list for method output_type
+	21, // [21:40] is the sub-list for method input_type
+	21, // [21:21] is the sub-list for extension type_name
+	21, // [21:21] is the sub-list for extension extendee
+	0,  // [0:21] is the sub-list for field type_name
 }
 
 func init() { file_advertisements_storage_proto_init() }

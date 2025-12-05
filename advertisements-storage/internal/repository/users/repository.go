@@ -7,24 +7,18 @@ import (
 	"fmt"
 	"time"
 
-	pb "advertisement-storage/pkg/pb"
-
 	sq "github.com/Masterminds/squirrel"
-
 	"google.golang.org/protobuf/types/known/timestamppb"
+
+	types "advertisement-storage/pkg"
+	pb "advertisement-storage/pkg/pb"
 )
 
-type database interface {
-	QueryRowContext(ctx context.Context, query string, args ...any) *sql.Row
-	QueryContext(ctx context.Context, query string, args ...any) (*sql.Rows, error)
-	ExecContext(ctx context.Context, query string, args ...any) (sql.Result, error)
-}
-
 type usersRepository struct {
-	db database
+	db types.Database
 }
 
-func NewUsersRepository(db database) *usersRepository {
+func NewUsersRepository(db types.Database) *usersRepository {
 	return &usersRepository{
 		db: db,
 	}
@@ -171,7 +165,7 @@ func (r *usersRepository) GetAll(ctx context.Context, req *pb.GetAllUsersRequest
 	query, args, err := sq.
 		Select("id", "email", "password_hash", "first_name", "last_name", "role", "created_at", "updated_at").
 		From("users").
-		OrderBy("email" + " ASC").
+		OrderBy("email DESC").
 		PlaceholderFormat(sq.Dollar).
 		ToSql()
 	if err != nil {
@@ -223,7 +217,6 @@ func (r *usersRepository) GetAll(ctx context.Context, req *pb.GetAllUsersRequest
 			CreatedAt:    timestamppb.New(createdAt),
 			UpdatedAt:    timestamppb.New(updatedAt),
 		})
-
 	}
 
 	err = rows.Err()

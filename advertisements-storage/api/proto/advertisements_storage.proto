@@ -44,9 +44,10 @@ message Advertisement {
     string description = 3;
     double price = 4;
     string currency = 5;
-    google.protobuf.Timestamp published_at = 6;
-    int64 category_id = 7;
-    int64 user_id = 8;
+    int64 category_id = 6;
+    int64 user_id = 7;
+    google.protobuf.Timestamp created_at = 8;
+    google.protobuf.Timestamp updated_at = 9;
 }
 
 message CreateAdvertisementRequest {
@@ -54,13 +55,12 @@ message CreateAdvertisementRequest {
     string description = 2;
     double price = 3;
     string currency = 4;
-    google.protobuf.Timestamp published_at = 5;
-    int64 category_id = 6;
-    int64 user_id = 7;
+    int64 category_id = 5;
+    int64 user_id = 6;
 }
 
 message CreateAdvertisementResponse {
-    Advertisement advertisement = 1;
+   int64 id = 1;
 }
 
 message GetAdvertisementByIdRequest{
@@ -79,6 +79,11 @@ message GetAllAdvertisementsResponse{
 
 message UpdateAdvertisementByIdRequest{
     int64 id = 1;
+    string title = 2;
+    string description = 3;
+    double price = 4;
+    string currency = 5;
+    int64 category_id = 6;
 }
 
 message UpdateAdvertisementByIdResponse{

@@ -23,11 +23,10 @@ CREATE TABLE IF NOT EXISTS advertisements (
     description TEXT NOT NULL,
     price DECIMAL(12,2) NOT NULL,
     currency VARCHAR(5) DEFAULT 'RUB',
+    category_id BIGINT NOT NULL REFERENCES categories(id) ON DELETE CASCADE,
+    user_id BIGINT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     created_at TIMESTAMPTZ DEFAULT NOW(),
     updated_at  TIMESTAMPTZ DEFAULT NOW(),
-    published_at TIMESTAMPTZ NOT NULL,
-    category_id BIGINT NOT NULL REFERENCES categories(id) ON DELETE CASCADE,
-    user_id BIGINT NOT NULL REFERENCES users(id) ON DELETE CASCADE
 );
 
 CREATE INDEX IF NOT EXISTS idx_users_email ON users(email);

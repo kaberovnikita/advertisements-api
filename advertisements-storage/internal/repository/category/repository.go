@@ -10,20 +10,15 @@ import (
 	sq "github.com/Masterminds/squirrel"
 	"google.golang.org/protobuf/types/known/timestamppb"
 
+	types "advertisement-storage/pkg"
 	pb "advertisement-storage/pkg/pb"
 )
 
-type database interface {
-	QueryRowContext(ctx context.Context, query string, args ...any) *sql.Row
-	QueryContext(ctx context.Context, query string, args ...any) (*sql.Rows, error)
-	ExecContext(ctx context.Context, query string, args ...any) (sql.Result, error)
-}
-
 type categoryRepository struct {
-	db database
+	db types.Database
 }
 
-func NewCategoryRepository(db database) *categoryRepository {
+func NewCategoryRepository(db types.Database) *categoryRepository {
 	return &categoryRepository{
 		db: db,
 	}
@@ -145,7 +140,7 @@ func (r *categoryRepository) GetAll(ctx context.Context, req *pb.GetAllCategorie
 	query, args, err := sq.
 		Select("id", "name", "alias", "created_at", "updated_at").
 		From("categories").
-		OrderBy("name" + " ASC").
+		OrderBy("name DESC").
 		PlaceholderFormat(sq.Dollar).
 		ToSql()
 	if err != nil {
