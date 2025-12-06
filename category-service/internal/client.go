@@ -1,12 +1,13 @@
 package storageclient
 
 import (
-	"category-service/pkg/pb"
 	"context"
 	"time"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
+
+	"category-service/pkg/pb"
 )
 
 type StorageClient struct {
@@ -51,7 +52,7 @@ func (cl *StorageClient) CreateCategory(ctx context.Context, name, alias string)
 		return 0, err
 	}
 
-	return resp.Id, nil
+	return resp.GetId(), nil
 }
 
 func (cl *StorageClient) GetCategoryById(ctx context.Context, id int64) (*pb.Category, error) {
@@ -62,7 +63,7 @@ func (cl *StorageClient) GetCategoryById(ctx context.Context, id int64) (*pb.Cat
 		return nil, err
 	}
 
-	return resp.Category, nil
+	return resp.GetCategory(), nil
 }
 
 func (cl *StorageClient) GetCategoryByAlias(ctx context.Context, alias string) (*pb.Category, error) {
@@ -73,7 +74,7 @@ func (cl *StorageClient) GetCategoryByAlias(ctx context.Context, alias string) (
 		return nil, err
 	}
 
-	return resp.Category, nil
+	return resp.GetCategory(), nil
 }
 
 func (cl *StorageClient) GetAllCategories(ctx context.Context) ([]*pb.Category, error) {
@@ -82,7 +83,7 @@ func (cl *StorageClient) GetAllCategories(ctx context.Context) ([]*pb.Category, 
 		return nil, err
 	}
 
-	return resp.Categories, nil
+	return resp.GetCategories(), nil
 }
 
 func (cl *StorageClient) UpdateCategory(ctx context.Context, id int64, name, alias string) (*pb.Category, error) {
@@ -95,7 +96,7 @@ func (cl *StorageClient) UpdateCategory(ctx context.Context, id int64, name, ali
 		return nil, err
 	}
 
-	return resp.Category, nil
+	return resp.GetCategory(), nil
 }
 
 func (cl *StorageClient) DeleteCategory(ctx context.Context, id int64) (*pb.DeleteCategoryByIDResponse, error) {

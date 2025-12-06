@@ -1,8 +1,9 @@
 package main
 
 import (
-	"category-service/cmd/app"
 	"log"
+
+	"category-service/cmd/app"
 )
 
 func main() {

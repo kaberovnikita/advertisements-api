@@ -1,9 +1,10 @@
 package app
 
 import (
+	"context"
+
 	storageclient "category-service/internal"
 	"category-service/pkg/pb"
-	"context"
 )
 
 type categoryServer struct {
@@ -16,6 +17,7 @@ func NewCategoryServer(storageClient *storageclient.StorageClient) *categoryServ
 		storageClient: storageClient,
 	}
 }
+
 func (serv *categoryServer) CreateCategory(ctx context.Context, req *pb.CreateCategoryRequest) (*pb.CreateCategoryResponse, error) {
 	id, err := serv.storageClient.CreateCategory(ctx, req.Name, req.Alias)
 	if err != nil {
