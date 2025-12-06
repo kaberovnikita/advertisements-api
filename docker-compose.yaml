@@ -53,6 +53,14 @@ services:
       - STORAGE_ADDR=advertisements-storage:8000
     depends_on:
       - advertisements-storage
+  ads-service:
+    build: ./ads-service
+    ports:
+      - "8005:8005"
+    environment:
+      - STORAGE_ADDR=advertisements-storage:8000
+    depends_on:
+      - advertisements-storage
   api-gateway:
     build: ./api-gateway
     ports:
@@ -61,9 +69,11 @@ services:
       - CATEGORY_SERVICE_ADDR=category-service:8001
       - SEARCH_SERVICE_ADDR=search-service:8002
       - USER_SERVICE_ADDR=users-service:8003
+      - ADS_SERVICE_ADDR=users-service:8005
     depends_on:
       - category-service
       - users-service
       - search-service
+      - ads-service
 volumes:
   pg_data:
