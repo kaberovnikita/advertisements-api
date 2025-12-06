@@ -53,5 +53,17 @@ services:
       - STORAGE_ADDR=advertisements-storage:8000
     depends_on:
       - advertisements-storage
+  api-gateway:
+    build: ./api-gateway
+    ports:
+      - "8004:8004"
+    environment:
+      - CATEGORY_SERVICE_ADDR=category-service:8001
+      - SEARCH_SERVICE_ADDR=search-service:8002
+      - USER_SERVICE_ADDR=users-service:8003
+    depends_on:
+      - category-service
+      - users-service
+      - search-service
 volumes:
   pg_data:

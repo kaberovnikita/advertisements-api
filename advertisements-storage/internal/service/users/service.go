@@ -25,25 +25,9 @@ func NewUsersService(repo types.UserRepository) *usersService {
 }
 
 func (s *usersService) RegisterUser(ctx context.Context, req *pb.RegisterUserRequest) (*pb.RegisterUserResponse, error) {
-	if len(strings.TrimSpace(req.Email)) == 0 {
-		return nil, errors.New("email is required")
-	}
-
 	emailRegex := regexp.MustCompile(`^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$`)
 	if !emailRegex.MatchString(req.Email) {
 		return nil, errors.New("invalid email format")
-	}
-
-	if len(strings.TrimSpace(req.Password)) == 0 {
-		return nil, errors.New("password is required")
-	}
-
-	if len(strings.TrimSpace(req.FirstName)) == 0 {
-		return nil, errors.New("first name is required")
-	}
-
-	if len(strings.TrimSpace(req.LastName)) == 0 {
-		return nil, errors.New("last name is required")
 	}
 
 	req.Email = strings.ToLower(strings.TrimSpace(req.Email))
@@ -65,15 +49,8 @@ func (s *usersService) RegisterUser(ctx context.Context, req *pb.RegisterUserReq
 }
 
 func (s *usersService) LoginUser(ctx context.Context, req *pb.LoginUserRequest) (*pb.LoginUserResponse, error) {
-	if len(strings.TrimSpace(req.Email)) == 0 {
-		return nil, errors.New("email is required")
-	}
-
-	if len(strings.TrimSpace(req.Password)) == 0 {
-		return nil, errors.New("password is required")
-	}
-
-	req.Email = strings.ToLower(strings.TrimSpace(req.Email))
+	req.Email = strings.TrimSpace(req.Email)
+	req.Password = strings.TrimSpace(req.Password)
 
 	userResp, err := s.repo.GetByEmail(ctx, &pb.GetUserByEmailRequest{Email: req.Email})
 	if err != nil {
@@ -101,50 +78,28 @@ func (s *usersService) GetAllUsers(ctx context.Context, req *pb.GetAllUsersReque
 		return nil, err
 	}
 
-	for _, user := range resp.Users {
-		user.PasswordHash = "***********"
-	}
-
 	return resp, nil
 }
 
 func (s *usersService) GetUserByID(ctx context.Context, req *pb.GetUserByIDRequest) (*pb.GetUserByIdResponse, error) {
-	if req.Id <= 0 {
-		return nil, errors.New("invalid user ID")
-	}
-
 	resp, err := s.repo.GetByID(ctx, req)
 	if err != nil {
 		return nil, err
 	}
 
-	resp.User.PasswordHash = "***********"
-
 	return resp, nil
 }
 
 func (s *usersService) GetUserByEmail(ctx context.Context, req *pb.GetUserByEmailRequest) (*pb.GetUserByEmailResponse, error) {
-	if len(strings.TrimSpace(req.Email)) == 0 {
-		return nil, errors.New("email is required")
-	}
-
-	req.Email = strings.ToLower(strings.TrimSpace(req.Email))
-
 	resp, err := s.repo.GetByEmail(ctx, req)
 	if err != nil {
 		return nil, err
 	}
 
-	resp.User.PasswordHash = "***********"
-
 	return resp, nil
 }
 
 func (s *usersService) UpdateUserById(ctx context.Context, req *pb.UpdateUserByIdRequest) (*pb.UpdateUserByIdResponse, error) {
-	if req.Id <= 0 {
-		return nil, errors.New("invalid user ID")
-	}
-
 	emailRegex := regexp.MustCompile(`^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$`)
 
 	if len(req.Email) != 0 {
@@ -152,14 +107,6 @@ func (s *usersService) UpdateUserById(ctx context.Context, req *pb.UpdateUserByI
 		if !emailRegex.MatchString(req.Email) {
 			return nil, errors.New("invalid email format")
 		}
-	}
-
-	if len(req.FirstName) != 0 {
-		req.FirstName = strings.TrimSpace(req.FirstName)
-	}
-
-	if len(req.LastName) != 0 {
-		req.LastName = strings.TrimSpace(req.LastName)
 	}
 
 	if len(req.PasswordHash) != 0 {
@@ -180,10 +127,6 @@ func (s *usersService) UpdateUserById(ctx context.Context, req *pb.UpdateUserByI
 }
 
 func (s *usersService) DeleteUserById(ctx context.Context, req *pb.DeleteUserByIdRequest) (*pb.DeleteUserByIdResponse, error) {
-	if req.Id <= 0 {
-		return nil, errors.New("invalid user ID")
-	}
-
 	_, err := s.repo.GetByID(ctx, &pb.GetUserByIDRequest{Id: req.Id})
 	if err != nil {
 		return nil, err

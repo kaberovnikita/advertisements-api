@@ -53,6 +53,20 @@ proto-user:
 		api/proto/advertisements_storage.proto
 	@echo "✅ Generated in users-service/pkg/pb/"
 
+proto-gateway:
+	@echo "Generating for api-gateway..."
+	mkdir -p api-gateway/pkg/pb
+	protoc -I api/proto \
+		--go_out=api-gateway/pkg/pb \
+		--go_opt=paths=source_relative \
+		--go_opt=Madvertisements_storage.proto=api-gateway/pkg/pb \
+		--go-grpc_out=api-gateway/pkg/pb \
+		--go-grpc_opt=paths=source_relative \
+		--go-grpc_opt=Madvertisements_storage.proto=api-gateway/pkg/pb \
+		api/proto/advertisements_storage.proto
+	@echo "✅ Generated in api-gateway/pkg/pb/"
+
+
 
 proto-all: proto-storage proto-search proto-category proto-user
 	@echo "✅ All proto files generated!"

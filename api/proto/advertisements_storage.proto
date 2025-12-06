@@ -7,14 +7,13 @@ import "google/protobuf/timestamp.proto";
 
 
 service AdvertisementsStorage {
-    // Ads
     rpc CreateAdvertisement (CreateAdvertisementRequest) returns (CreateAdvertisementResponse);
     rpc GetAdvertisementById (GetAdvertisementByIdRequest) returns (GetAdvertisementByIdResponse);
     rpc GetAllAdvertisements (GetAllAdvertisementsRequest) returns (GetAllAdvertisementsResponse);
     rpc UpdateAdvertisementById (UpdateAdvertisementByIdRequest) returns (UpdateAdvertisementByIdResponse);
     rpc DeleteAdvertisementByID (DeleteAdvertisementByIDRequest) returns (DeleteAdvertisementByIDResponse);
 
-    // Categories
+
     rpc CreateCategory(CreateCategoryRequest) returns (CreateCategoryResponse);
     rpc GetCategoryById(GetCategoryByIdRequest) returns (GetCategoryByIdResponse);
     rpc GetCategoryByAlias(GetCategoryByAliasRequest) returns (GetCategoryByAliasResponse);
@@ -22,7 +21,7 @@ service AdvertisementsStorage {
     rpc UpdateCategoryById(UpdateCategoryByIdRequest) returns(UpdateCategoryByIdResponse);
     rpc DeleteCategoryById(DeleteCategoryByIDRequest) returns(DeleteCategoryByIDResponse);
 
-    // Users
+
     rpc RegisterUser(RegisterUserRequest) returns (RegisterUserResponse);
     rpc LoginUser(LoginUserRequest) returns (LoginUserResponse);
     rpc GetAllUsers(GetAllUsersRequest) returns (GetAllUsersResponse);
@@ -31,11 +30,9 @@ service AdvertisementsStorage {
     rpc UpdateUserById (UpdateUserByIdRequest) returns (UpdateUserByIdResponse);
     rpc DeleteUserById (DeleteUserByIdRequest) returns (DeleteUserByIdResponse);
 
-    // Search
+  
     rpc SearchAdvertisementByTitle(SearchAdvertisementByTitleRequest) returns (SearchAdvertisementByTitleResponse);
 };
-
-// === Ads ===
 
 message Advertisement {
     int64 id = 1;
@@ -95,7 +92,6 @@ message DeleteAdvertisementByIDRequest{
 
 message DeleteAdvertisementByIDResponse{};
 
-// === Category ===
 
 message Category{
     int64 id = 1;
@@ -152,7 +148,6 @@ message DeleteCategoryByIDRequest{
 
 message DeleteCategoryByIDResponse{};
 
-// === Users ===
 
 enum UserRole {
     USER_ROLE_USER = 0;
@@ -231,8 +226,6 @@ message DeleteUserByIdRequest{
 }
 
 message DeleteUserByIdResponse{}
-
-// === Search ===
 
 message SearchAdvertisementByTitleRequest{
     string title = 1;

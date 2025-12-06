@@ -9,6 +9,6 @@ COPY . .
 
 RUN go build -o main ./cmd/main.go
 
-EXPOSE 8001
+EXPOSE 8002
 
 CMD ["./main"]
