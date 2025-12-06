@@ -64,7 +64,7 @@ type AdvertisementsStorageClient interface {
 	GetUserByID(ctx context.Context, in *GetUserByIDRequest, opts ...grpc.CallOption) (*GetUserByIdResponse, error)
 	GetUserByEmail(ctx context.Context, in *GetUserByEmailRequest, opts ...grpc.CallOption) (*GetUserByEmailResponse, error)
 	UpdateUserById(ctx context.Context, in *UpdateUserByIdRequest, opts ...grpc.CallOption) (*UpdateUserByIdResponse, error)
-	DeleteUserById(ctx context.Context, in *DeleteUserByIdRequest, opts ...grpc.CallOption) (*DeleteAdvertisementByIDResponse, error)
+	DeleteUserById(ctx context.Context, in *DeleteUserByIdRequest, opts ...grpc.CallOption) (*DeleteUserByIdResponse, error)
 	// Search
 	SearchAdvertisementByTitle(ctx context.Context, in *SearchAdvertisementByTitleRequest, opts ...grpc.CallOption) (*SearchAdvertisementByTitleResponse, error)
 }
@@ -247,9 +247,9 @@ func (c *advertisementsStorageClient) UpdateUserById(ctx context.Context, in *Up
 	return out, nil
 }
 
-func (c *advertisementsStorageClient) DeleteUserById(ctx context.Context, in *DeleteUserByIdRequest, opts ...grpc.CallOption) (*DeleteAdvertisementByIDResponse, error) {
+func (c *advertisementsStorageClient) DeleteUserById(ctx context.Context, in *DeleteUserByIdRequest, opts ...grpc.CallOption) (*DeleteUserByIdResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(DeleteAdvertisementByIDResponse)
+	out := new(DeleteUserByIdResponse)
 	err := c.cc.Invoke(ctx, AdvertisementsStorage_DeleteUserById_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -291,7 +291,7 @@ type AdvertisementsStorageServer interface {
 	GetUserByID(context.Context, *GetUserByIDRequest) (*GetUserByIdResponse, error)
 	GetUserByEmail(context.Context, *GetUserByEmailRequest) (*GetUserByEmailResponse, error)
 	UpdateUserById(context.Context, *UpdateUserByIdRequest) (*UpdateUserByIdResponse, error)
-	DeleteUserById(context.Context, *DeleteUserByIdRequest) (*DeleteAdvertisementByIDResponse, error)
+	DeleteUserById(context.Context, *DeleteUserByIdRequest) (*DeleteUserByIdResponse, error)
 	// Search
 	SearchAdvertisementByTitle(context.Context, *SearchAdvertisementByTitleRequest) (*SearchAdvertisementByTitleResponse, error)
 }
@@ -354,7 +354,7 @@ func (UnimplementedAdvertisementsStorageServer) GetUserByEmail(context.Context, 
 func (UnimplementedAdvertisementsStorageServer) UpdateUserById(context.Context, *UpdateUserByIdRequest) (*UpdateUserByIdResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method UpdateUserById not implemented")
 }
-func (UnimplementedAdvertisementsStorageServer) DeleteUserById(context.Context, *DeleteUserByIdRequest) (*DeleteAdvertisementByIDResponse, error) {
+func (UnimplementedAdvertisementsStorageServer) DeleteUserById(context.Context, *DeleteUserByIdRequest) (*DeleteUserByIdResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method DeleteUserById not implemented")
 }
 func (UnimplementedAdvertisementsStorageServer) SearchAdvertisementByTitle(context.Context, *SearchAdvertisementByTitleRequest) (*SearchAdvertisementByTitleResponse, error) {

@@ -30,7 +30,7 @@ service AdvertisementsStorage {
     rpc GetUserByID(GetUserByIDRequest) returns (GetUserByIdResponse);
     rpc GetUserByEmail(GetUserByEmailRequest) returns (GetUserByEmailResponse); 
     rpc UpdateUserById (UpdateUserByIdRequest) returns (UpdateUserByIdResponse);
-    rpc DeleteUserById (DeleteUserByIdRequest) returns (DeleteAdvertisementByIDResponse);
+    rpc DeleteUserById (DeleteUserByIdRequest) returns (DeleteUserByIdResponse);
 
     // Search
     rpc SearchAdvertisementByTitle(SearchAdvertisementByTitleRequest) returns (SearchAdvertisementByTitleResponse);

@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS advertisements (
     category_id BIGINT NOT NULL REFERENCES categories(id) ON DELETE CASCADE,
     user_id BIGINT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     created_at TIMESTAMPTZ DEFAULT NOW(),
-    updated_at  TIMESTAMPTZ DEFAULT NOW(),
+    updated_at  TIMESTAMPTZ DEFAULT NOW()
 );
 
 CREATE INDEX IF NOT EXISTS idx_users_email ON users(email);
@@ -34,4 +34,3 @@ CREATE INDEX IF NOT EXISTS idx_users_role ON users(role);
 CREATE INDEX IF NOT EXISTS idx_categories_alias ON categories(alias);
 CREATE INDEX IF NOT EXISTS idx_ads_user_id ON advertisements(user_id);
 CREATE INDEX IF NOT EXISTS idx_ads_category_id ON advertisements(category_id);
-CREATE INDEX IF NOT EXISTS idx_ads_published_at ON advertisements(published_at);

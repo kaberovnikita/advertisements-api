@@ -1,8 +1,6 @@
 package app
 
 import (
-	"advertisement-storage/pkg/db"
-	avdertisement_storage "advertisement-storage/pkg/pb"
 	"log"
 	"net"
 	"os"
@@ -10,6 +8,17 @@ import (
 	"syscall"
 
 	"google.golang.org/grpc"
+
+	advertisementsrepository "advertisement-storage/internal/repository/advertisements"
+	categoryrepository "advertisement-storage/internal/repository/category"
+	searchrepository "advertisement-storage/internal/repository/search"
+	usersrepository "advertisement-storage/internal/repository/users"
+	advertisementsservice "advertisement-storage/internal/service/advertisements"
+	categoryservice "advertisement-storage/internal/service/category"
+	searchservice "advertisement-storage/internal/service/search"
+	usersservice "advertisement-storage/internal/service/users"
+	"advertisement-storage/pkg/db"
+	pb "advertisement-storage/pkg/pb"
 )
 
 func Init() error {
@@ -21,9 +30,29 @@ func Init() error {
 
 	log.Println("database successful started")
 
+	advertisementsRepository := advertisementsrepository.NewAdvertisementsRepository(db)
+	categoryRepository := categoryrepository.NewCategoryRepository(db)
+	searchRepository := searchrepository.NewSearchRepository(db)
+	usersRepository := usersrepository.NewUsersRepository(db)
+
+	advertisementsService := advertisementsservice.NewAdvertisementsService(
+		advertisementsRepository,
+		categoryRepository,
+		usersRepository,
+	)
+	categoryService := categoryservice.NewCategoryService(categoryRepository)
+	searchService := searchservice.NewSearchService(searchRepository)
+	usersService := usersservice.NewUsersService(usersRepository)
+
 	grpcServer := grpc.NewServer()
-	server := NewServer()
-	avdertisement_storage.RegisterAdvertisementsStorageServer(grpcServer, server)
+	advertisementsStorageServer := NewAdvertisementsStorageServer(
+		advertisementsService,
+		categoryService,
+		searchService,
+		usersService,
+	)
+
+	pb.RegisterAdvertisementsStorageServer(grpcServer, advertisementsStorageServer)
 
 	lis, err := net.Listen("tcp", ":8000")
 	if err != nil {

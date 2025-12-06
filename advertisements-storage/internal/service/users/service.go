@@ -3,6 +3,7 @@ package usersservice
 import (
 	"context"
 	"errors"
+	"os"
 	"regexp"
 	"strings"
 
@@ -14,14 +15,12 @@ import (
 )
 
 type usersService struct {
-	repo      types.UserRepository
-	jwtSecret string
+	repo types.UserRepository
 }
 
-func NewAdvertisementsService(repo types.UserRepository, jwtSecret string) *usersService {
+func NewUsersService(repo types.UserRepository) *usersService {
 	return &usersService{
-		repo:      repo,
-		jwtSecret: jwtSecret,
+		repo: repo,
 	}
 }
 
@@ -86,7 +85,7 @@ func (s *usersService) LoginUser(ctx context.Context, req *pb.LoginUserRequest) 
 		return nil, errors.New("invalid email or password")
 	}
 
-	token, err := generateJWT(userResp.User, s.jwtSecret)
+	token, err := generateJWT(userResp.User)
 	if err != nil {
 		return nil, errors.New("failed to generate authentication token")
 	}
@@ -193,7 +192,9 @@ func (s *usersService) DeleteUserById(ctx context.Context, req *pb.DeleteUserByI
 	return s.repo.Delete(ctx, req)
 }
 
-func generateJWT(user *pb.User, jwtSecret string) (string, error) {
+func generateJWT(user *pb.User) (string, error) {
+	secret := os.Getenv("JWT_SECRET")
+
 	claims := jwt.MapClaims{
 		"user_id": user.Id,
 		"email":   user.Email,
@@ -204,5 +205,5 @@ func generateJWT(user *pb.User, jwtSecret string) (string, error) {
 	}
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-	return token.SignedString([]byte(jwtSecret))
+	return token.SignedString([]byte(secret))
 }
