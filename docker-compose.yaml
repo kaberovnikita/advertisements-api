@@ -65,11 +65,11 @@ services:
     build: ./api-gateway
     ports:
       - "8004:8004"
-    environment:
+    environment: 
       - CATEGORY_SERVICE_ADDR=category-service:8001
       - SEARCH_SERVICE_ADDR=search-service:8002
       - USER_SERVICE_ADDR=users-service:8003
-      - ADS_SERVICE_ADDR=users-service:8005
+      - ADS_SERVICE_ADDR=ads-service:8005
     depends_on:
       - category-service
       - users-service
