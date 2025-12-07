@@ -2,7 +2,12 @@ syntax = "proto3";
 
 package advertisements_storage;
 
+// JAVA GEN CODE LOCATION + CLASSES + NAME (rapitor3)
+option java_package = "com.rapitor3.ads_service";
+option java_multiple_files = true;
+option java_outer_classname = "AdvertisementsProto";
 
+// GOLANG (NikitaKaberov)
 import "google/protobuf/timestamp.proto";
 
 
