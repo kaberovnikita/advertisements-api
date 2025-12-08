@@ -1,5 +1,9 @@
 server:
   port: 8005
+
 spring:
   application:
     name: ads-service
+
+storage:
+  host: ${STORAGE_ADDR:advertisements-storage:8000}
