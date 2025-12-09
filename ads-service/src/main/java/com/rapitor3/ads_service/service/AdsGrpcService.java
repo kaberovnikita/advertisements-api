@@ -3,7 +3,9 @@ package com.rapitor3.ads_service.service;
 import com.rapitor3.ads_service.*;
 import com.rapitor3.ads_service.client.StorageClient;
 import io.grpc.stub.StreamObserver;
+import org.springframework.stereotype.Service;
 
+@Service
 public class AdsGrpcService extends AdvertisementsStorageGrpc.AdvertisementsStorageImplBase {
 
     private final StorageClient storage;

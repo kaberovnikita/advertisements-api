@@ -35,5 +35,14 @@ public class GrpcServerRunner {
 
         System.out.println("Ads-service gRPC started at :" + servicePort);
         System.out.println("Connected to STORAGE → " + props.getAddr());
+
+        new Thread(() -> {
+            try {
+                server.awaitTermination();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }).start();
+
     }
 }
