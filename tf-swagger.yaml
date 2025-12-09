@@ -1,0 +1,260 @@
+openapi: 3.0.3
+info:
+  title: TechFind API
+  description: API для сервиса подачи и поиска объявлений.
+  version: 1.0.0
+  contact:
+    name: Снежные барсы
+    url: https://github.com/kaberovnikita/advertisements-api
+servers:
+  - url: http://localhost:8080/api/v1
+    description: API Gateway
+  
+tags:
+  - name: Ads
+    description: Работа с объявлениями (gRPC AdsService)
+  - name: Users
+    description: Пользователи и Auth (gRPC UsersService)
+  - name: Categories
+    description: Категории товаров (gRPC CategoryService)
+  - name: Search
+    description: Поиск и фильтрация (gRPC SearchService)
+
+paths:
+  /auth/register:
+    post:
+      tags: [Users]
+      summary: Регистрация нового пользователя
+      operationId: Register
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email, password, username]
+              properties:
+                username: { type: string }
+                email: { type: string, format: email }
+                password: { type: string, format: password }
+      responses:
+        '201':
+          description: Успешная регистрация
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user_id: { type: string, format: uuid }
+
+  /auth/login:
+    post:
+      tags: [Users]
+      summary: Аутентификация
+      operationId: Login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email, password]
+              properties:
+                email: { type: string, format: email }
+                password: { type: string, format: password }
+      responses:
+        '200':
+          description: Токен получен
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  access_token: { type: string }
+                  refresh_token: { type: string }
+
+  /ads:
+    get:
+      tags: [Ads]
+      summary: Получить список объявлений
+      description: Использует SearchService для фильтрации или AdsService для листинга.
+      parameters:
+        - name: page
+          in: query
+          schema: { type: integer, default: 1 }
+        - name: limit
+          in: query
+          schema: { type: integer, default: 20 }
+        - name: category_id
+          in: query
+          schema: { type: string, format: uuid }
+      responses:
+        '200':
+          description: Список объявлений
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ads:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Ad'
+                  total:
+                    type: integer
+
+    post:
+      tags: [Ads]
+      summary: Создать объявление
+      security: [{ BearerAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAdRequest'
+      responses:
+        '201':
+          description: Объявление создано
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ad'
+
+  /ads/{id}:
+    get:
+      tags: [Ads]
+      summary: Получить объявление по ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+      responses:
+        '200':
+          description: Детали объявления
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ad'
+    
+    put:
+      tags: [Ads]
+      summary: Обновить объявление
+      security: [{ BearerAuth: [] }]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateAdRequest'
+      responses:
+        '200':
+          description: Объявление обновлено
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ad'
+
+    delete:
+      tags: [Ads]
+      summary: Удалить объявление
+      security: [{ BearerAuth: [] }]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+      responses:
+        '204':
+          description: Успешно удалено
+
+  /categories:
+    get:
+      tags: [Categories]
+      summary: Получить дерево категорий
+      responses:
+        '200':
+          description: Список категорий
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Category'
+
+  /search:
+    get:
+      tags: [Search]
+      summary: Полнотекстовый поиск
+      parameters:
+        - name: q
+          in: query
+          description: Поисковый запрос
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: Результаты поиска
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Ad'
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    Ad:
+      type: object
+      properties:
+        id: { type: string, format: uuid }
+        title: { type: string, example: "iPhone 13 Pro" }
+        description: { type: string }
+        price: { type: number, format: double }
+        currency: { type: string, example: "RUB" }
+        author_id: { type: string, format: uuid }
+        category_id: { type: string, format: uuid }
+        images: 
+          type: array
+          items: { type: string }
+        created_at: { type: string, format: date-time }
+    
+    CreateAdRequest:
+      type: object
+      required: [title, description, price, category_id]
+      properties:
+        title: { type: string }
+        description: { type: string }
+        price: { type: number }
+        category_id: { type: string, format: uuid }
+        images: 
+          type: array
+          items: { type: string }
+
+    UpdateAdRequest:
+      type: object
+      properties:
+        title: { type: string }
+        description: { type: string }
+        price: { type: number }
+        is_sold: { type: boolean }
+
+    Category:
+      type: object
+      properties:
+        id: { type: string, format: uuid }
+        name: { type: string }
+        slug: { type: string }
+        parent_id: { type: string, format: uuid, nullable: true }
