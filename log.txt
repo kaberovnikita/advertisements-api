@@ -1,0 +1,61 @@
+#1 [internal] load local bake definitions
+#1 reading from stdin 3.38kB done
+#1 DONE 0.0s
+
+#2 [users-service internal] load build definition from Dockerfile
+#2 transferring dockerfile: 196B done
+#2 DONE 0.0s
+
+#3 [advertisements-storage internal] load build definition from Dockerfile
+#3 transferring dockerfile: 196B done
+#3 DONE 0.0s
+
+#4 [category-service internal] load build definition from Dockerfile
+#4 transferring dockerfile: 196B done
+#4 DONE 0.0s
+
+#5 [search-service internal] load build definition from Dockerfile
+#5 transferring dockerfile: 196B done
+#5 DONE 0.0s
+
+#6 [api-gateway internal] load build definition from Dockerfile
+#6 transferring dockerfile: 196B done
+#6 DONE 0.0s
+
+#7 [ads-service internal] load build definition from Dockerfile
+#7 transferring dockerfile: 933B done
+#7 DONE 0.0s
+
+#8 [api-gateway internal] load metadata for docker.io/library/golang:1.25.1-alpine
+#8 ...
+
+#9 [ads-service internal] load metadata for docker.io/library/gradle:8.5-jdk21-alpine
+#9 ERROR: no match for platform in manifest: not found
+
+#10 [ads-service internal] load metadata for docker.io/library/eclipse-temurin:21-jre-alpine
+#10 CANCELED
+
+#8 [users-service internal] load metadata for docker.io/library/golang:1.25.1-alpine
+#8 DONE 0.4s
+
+#11 [users-service internal] load .dockerignore
+#11 transferring context: 2B done
+#11 DONE 0.0s
+
+#12 [category-service internal] load .dockerignore
+#12 transferring context: 2B done
+#12 DONE 0.0s
+
+#13 [api-gateway internal] load .dockerignore
+#13 transferring context: 2B done
+#13 CANCELED
+
+#14 [search-service internal] load .dockerignore
+#14 transferring context: 2B done
+#14 CANCELED
+
+#15 [advertisements-storage internal] load .dockerignore
+#15 CANCELED
+------
+ > [ads-service internal] load metadata for docker.io/library/gradle:8.5-jdk21-alpine:
+------
