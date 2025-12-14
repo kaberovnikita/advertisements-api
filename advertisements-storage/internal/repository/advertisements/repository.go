@@ -28,7 +28,7 @@ func NewAdvertisementsRepository(db types.Database) *advertisementsRepository {
 func (r *advertisementsRepository) Create(ctx context.Context, req *pb.CreateAdvertisementRequest) (*pb.CreateAdvertisementResponse, error) {
 	query, args, err := sq.
 		Insert("advertisements").
-		Columns("title", "description", "price", "currency", "published_at", "category_id", "user_id").
+		Columns("title", "description", "price", "currency", "category_id", "user_id").
 		Values(req.Title, req.Description, req.Price, strings.ToUpper(req.Currency), req.CategoryId, req.UserId).
 		Suffix("RETURNING id").
 		PlaceholderFormat(sq.Dollar).

@@ -8,6 +8,7 @@ import (
 	"strings"
 
 	"github.com/golang-jwt/jwt/v5"
+	"github.com/joho/godotenv"
 	"golang.org/x/crypto/bcrypt"
 
 	types "advertisement-storage/pkg"
@@ -127,6 +128,7 @@ func (s *usersService) DeleteUserById(ctx context.Context, req *pb.DeleteUserByI
 }
 
 func generateJWT(user *pb.User) (string, error) {
+	godotenv.Load(".env")
 	secret := os.Getenv("JWT_SECRET")
 
 	claims := jwt.MapClaims{

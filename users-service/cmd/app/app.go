@@ -15,6 +15,9 @@ import (
 
 func Init() error {
 	storageAddr := os.Getenv("STORAGE_ADDR")
+	if storageAddr == "" {
+		storageAddr = "localhost:8000"
+	}
 
 	storageClient, err := storageclient.NewStorageClient(storageAddr)
 	if err != nil {
