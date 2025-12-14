@@ -5,6 +5,7 @@ import (
 	"log"
 	"os"
 
+	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
 )
 
@@ -13,6 +14,7 @@ type database struct {
 }
 
 func NewDatabase() (*database, error) {
+	godotenv.Load(".env")
 	url := os.Getenv("DB_URL")
 
 	db, err := sql.Open("postgres", url)

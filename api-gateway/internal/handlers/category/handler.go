@@ -23,6 +23,7 @@ func NewCategoryHandler(router *http.ServeMux, categoryClient *categoryclient.Ca
 
 	router.HandleFunc("POST /api/v1/categories", handler.CreateCategory)
 	router.HandleFunc("GET /api/v1/categories/{id}", handler.GetCategoryByID)
+	router.HandleFunc("GET /api/v1/categories", handler.GetAllCategories)
 	router.HandleFunc("GET /api/v1/categories/alias/{alias}", handler.GetCategoryByAlias)
 	router.HandleFunc("PATCH /api/v1/categories/{id}", handler.UpdateCategoryByID)
 	router.HandleFunc("DELETE /api/v1/categories/{id}", handler.DeleteCategoryByID)
