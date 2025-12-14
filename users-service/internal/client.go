@@ -81,17 +81,6 @@ func (cl *StorageClient) GetUserById(ctx context.Context, id int64) (*pb.User, e
 	return resp.GetUser(), nil
 }
 
-func (cl *StorageClient) GetUserByEmail(ctx context.Context, email string) (*pb.User, error) {
-	resp, err := cl.client.GetUserByEmail(ctx, &pb.GetUserByEmailRequest{
-		Email: email,
-	})
-	if err != nil {
-		return nil, err
-	}
-
-	return resp.GetUser(), nil
-}
-
 func (cl *StorageClient) GetAllUsers(ctx context.Context) ([]*pb.User, error) {
 	resp, err := cl.client.GetAllUsers(ctx, &pb.GetAllUsersRequest{})
 	if err != nil {

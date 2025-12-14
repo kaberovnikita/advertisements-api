@@ -90,15 +90,6 @@ func (s *usersService) GetUserByID(ctx context.Context, req *pb.GetUserByIDReque
 	return resp, nil
 }
 
-func (s *usersService) GetUserByEmail(ctx context.Context, req *pb.GetUserByEmailRequest) (*pb.GetUserByEmailResponse, error) {
-	resp, err := s.repo.GetByEmail(ctx, req)
-	if err != nil {
-		return nil, err
-	}
-
-	return resp, nil
-}
-
 func (s *usersService) UpdateUserById(ctx context.Context, req *pb.UpdateUserByIdRequest) (*pb.UpdateUserByIdResponse, error) {
 	emailRegex := regexp.MustCompile(`^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$`)
 

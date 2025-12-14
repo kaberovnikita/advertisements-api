@@ -62,17 +62,6 @@ func (serv *usersServer) GetUserByID(ctx context.Context, req *pb.GetUserByIDReq
 	}, nil
 }
 
-func (serv *usersServer) GetUserByEmail(ctx context.Context, req *pb.GetUserByEmailRequest) (*pb.GetUserByEmailResponse, error) {
-	user, err := serv.storageClient.GetUserByEmail(ctx, req.Email)
-	if err != nil {
-		return nil, err
-	}
-
-	return &pb.GetUserByEmailResponse{
-		User: user,
-	}, nil
-}
-
 func (serv *usersServer) UpdateUserById(ctx context.Context, req *pb.UpdateUserByIdRequest) (*pb.UpdateUserByIdResponse, error) {
 	user, err := serv.storageClient.UpdateUserById(ctx, req.Id, req.Email, req.PasswordHash, req.FirstName, req.LastName, req.Role)
 	if err != nil {

@@ -2302,7 +2302,7 @@ const file_advertisements_storage_proto_rawDesc = "" +
 	"\radvertisement\x18\x01 \x03(\v2%.advertisements_storage.AdvertisementR\radvertisement*3\n" +
 	"\bUserRole\x12\x12\n" +
 	"\x0eUSER_ROLE_USER\x10\x00\x12\x13\n" +
-	"\x0fUSER_ROLE_ADMIN\x10\x012\x92\x12\n" +
+	"\x0fUSER_ROLE_ADMIN\x10\x012\xa1\x11\n" +
 	"\x15AdvertisementsStorage\x12~\n" +
 	"\x13CreateAdvertisement\x122.advertisements_storage.CreateAdvertisementRequest\x1a3.advertisements_storage.CreateAdvertisementResponse\x12\x81\x01\n" +
 	"\x14GetAdvertisementById\x123.advertisements_storage.GetAdvertisementByIdRequest\x1a4.advertisements_storage.GetAdvertisementByIdResponse\x12\x81\x01\n" +
@@ -2319,10 +2319,10 @@ const file_advertisements_storage_proto_rawDesc = "" +
 	"\tLoginUser\x12(.advertisements_storage.LoginUserRequest\x1a).advertisements_storage.LoginUserResponse\x12f\n" +
 	"\vGetAllUsers\x12*.advertisements_storage.GetAllUsersRequest\x1a+.advertisements_storage.GetAllUsersResponse\x12f\n" +
 	"\vGetUserByID\x12*.advertisements_storage.GetUserByIDRequest\x1a+.advertisements_storage.GetUserByIdResponse\x12o\n" +
-	"\x0eGetUserByEmail\x12-.advertisements_storage.GetUserByEmailRequest\x1a..advertisements_storage.GetUserByEmailResponse\x12o\n" +
 	"\x0eUpdateUserById\x12-.advertisements_storage.UpdateUserByIdRequest\x1a..advertisements_storage.UpdateUserByIdResponse\x12o\n" +
 	"\x0eDeleteUserById\x12-.advertisements_storage.DeleteUserByIdRequest\x1a..advertisements_storage.DeleteUserByIdResponse\x12\x93\x01\n" +
-	"\x1aSearchAdvertisementByTitle\x129.advertisements_storage.SearchAdvertisementByTitleRequest\x1a:.advertisements_storage.SearchAdvertisementByTitleResponseb\x06proto3"
+	"\x1aSearchAdvertisementByTitle\x129.advertisements_storage.SearchAdvertisementByTitleRequest\x1a:.advertisements_storage.SearchAdvertisementByTitleResponseB1\n" +
+	"\x18com.rapitor3.ads_serviceB\x13AdvertisementsProtoP\x01b\x06proto3"
 
 var (
 	file_advertisements_storage_proto_rawDescOnce sync.Once
@@ -2420,31 +2420,29 @@ var file_advertisements_storage_proto_depIdxs = []int32{
 	28, // 33: advertisements_storage.AdvertisementsStorage.LoginUser:input_type -> advertisements_storage.LoginUserRequest
 	30, // 34: advertisements_storage.AdvertisementsStorage.GetAllUsers:input_type -> advertisements_storage.GetAllUsersRequest
 	34, // 35: advertisements_storage.AdvertisementsStorage.GetUserByID:input_type -> advertisements_storage.GetUserByIDRequest
-	32, // 36: advertisements_storage.AdvertisementsStorage.GetUserByEmail:input_type -> advertisements_storage.GetUserByEmailRequest
-	36, // 37: advertisements_storage.AdvertisementsStorage.UpdateUserById:input_type -> advertisements_storage.UpdateUserByIdRequest
-	38, // 38: advertisements_storage.AdvertisementsStorage.DeleteUserById:input_type -> advertisements_storage.DeleteUserByIdRequest
-	40, // 39: advertisements_storage.AdvertisementsStorage.SearchAdvertisementByTitle:input_type -> advertisements_storage.SearchAdvertisementByTitleRequest
-	3,  // 40: advertisements_storage.AdvertisementsStorage.CreateAdvertisement:output_type -> advertisements_storage.CreateAdvertisementResponse
-	5,  // 41: advertisements_storage.AdvertisementsStorage.GetAdvertisementById:output_type -> advertisements_storage.GetAdvertisementByIdResponse
-	7,  // 42: advertisements_storage.AdvertisementsStorage.GetAllAdvertisements:output_type -> advertisements_storage.GetAllAdvertisementsResponse
-	9,  // 43: advertisements_storage.AdvertisementsStorage.UpdateAdvertisementById:output_type -> advertisements_storage.UpdateAdvertisementByIdResponse
-	11, // 44: advertisements_storage.AdvertisementsStorage.DeleteAdvertisementByID:output_type -> advertisements_storage.DeleteAdvertisementByIDResponse
-	14, // 45: advertisements_storage.AdvertisementsStorage.CreateCategory:output_type -> advertisements_storage.CreateCategoryResponse
-	16, // 46: advertisements_storage.AdvertisementsStorage.GetCategoryById:output_type -> advertisements_storage.GetCategoryByIdResponse
-	18, // 47: advertisements_storage.AdvertisementsStorage.GetCategoryByAlias:output_type -> advertisements_storage.GetCategoryByAliasResponse
-	20, // 48: advertisements_storage.AdvertisementsStorage.GetAllCategories:output_type -> advertisements_storage.GetAllCategoriesResponse
-	22, // 49: advertisements_storage.AdvertisementsStorage.UpdateCategoryById:output_type -> advertisements_storage.UpdateCategoryByIdResponse
-	24, // 50: advertisements_storage.AdvertisementsStorage.DeleteCategoryById:output_type -> advertisements_storage.DeleteCategoryByIDResponse
-	27, // 51: advertisements_storage.AdvertisementsStorage.RegisterUser:output_type -> advertisements_storage.RegisterUserResponse
-	29, // 52: advertisements_storage.AdvertisementsStorage.LoginUser:output_type -> advertisements_storage.LoginUserResponse
-	31, // 53: advertisements_storage.AdvertisementsStorage.GetAllUsers:output_type -> advertisements_storage.GetAllUsersResponse
-	35, // 54: advertisements_storage.AdvertisementsStorage.GetUserByID:output_type -> advertisements_storage.GetUserByIdResponse
-	33, // 55: advertisements_storage.AdvertisementsStorage.GetUserByEmail:output_type -> advertisements_storage.GetUserByEmailResponse
-	37, // 56: advertisements_storage.AdvertisementsStorage.UpdateUserById:output_type -> advertisements_storage.UpdateUserByIdResponse
-	39, // 57: advertisements_storage.AdvertisementsStorage.DeleteUserById:output_type -> advertisements_storage.DeleteUserByIdResponse
-	41, // 58: advertisements_storage.AdvertisementsStorage.SearchAdvertisementByTitle:output_type -> advertisements_storage.SearchAdvertisementByTitleResponse
-	40, // [40:59] is the sub-list for method output_type
-	21, // [21:40] is the sub-list for method input_type
+	36, // 36: advertisements_storage.AdvertisementsStorage.UpdateUserById:input_type -> advertisements_storage.UpdateUserByIdRequest
+	38, // 37: advertisements_storage.AdvertisementsStorage.DeleteUserById:input_type -> advertisements_storage.DeleteUserByIdRequest
+	40, // 38: advertisements_storage.AdvertisementsStorage.SearchAdvertisementByTitle:input_type -> advertisements_storage.SearchAdvertisementByTitleRequest
+	3,  // 39: advertisements_storage.AdvertisementsStorage.CreateAdvertisement:output_type -> advertisements_storage.CreateAdvertisementResponse
+	5,  // 40: advertisements_storage.AdvertisementsStorage.GetAdvertisementById:output_type -> advertisements_storage.GetAdvertisementByIdResponse
+	7,  // 41: advertisements_storage.AdvertisementsStorage.GetAllAdvertisements:output_type -> advertisements_storage.GetAllAdvertisementsResponse
+	9,  // 42: advertisements_storage.AdvertisementsStorage.UpdateAdvertisementById:output_type -> advertisements_storage.UpdateAdvertisementByIdResponse
+	11, // 43: advertisements_storage.AdvertisementsStorage.DeleteAdvertisementByID:output_type -> advertisements_storage.DeleteAdvertisementByIDResponse
+	14, // 44: advertisements_storage.AdvertisementsStorage.CreateCategory:output_type -> advertisements_storage.CreateCategoryResponse
+	16, // 45: advertisements_storage.AdvertisementsStorage.GetCategoryById:output_type -> advertisements_storage.GetCategoryByIdResponse
+	18, // 46: advertisements_storage.AdvertisementsStorage.GetCategoryByAlias:output_type -> advertisements_storage.GetCategoryByAliasResponse
+	20, // 47: advertisements_storage.AdvertisementsStorage.GetAllCategories:output_type -> advertisements_storage.GetAllCategoriesResponse
+	22, // 48: advertisements_storage.AdvertisementsStorage.UpdateCategoryById:output_type -> advertisements_storage.UpdateCategoryByIdResponse
+	24, // 49: advertisements_storage.AdvertisementsStorage.DeleteCategoryById:output_type -> advertisements_storage.DeleteCategoryByIDResponse
+	27, // 50: advertisements_storage.AdvertisementsStorage.RegisterUser:output_type -> advertisements_storage.RegisterUserResponse
+	29, // 51: advertisements_storage.AdvertisementsStorage.LoginUser:output_type -> advertisements_storage.LoginUserResponse
+	31, // 52: advertisements_storage.AdvertisementsStorage.GetAllUsers:output_type -> advertisements_storage.GetAllUsersResponse
+	35, // 53: advertisements_storage.AdvertisementsStorage.GetUserByID:output_type -> advertisements_storage.GetUserByIdResponse
+	37, // 54: advertisements_storage.AdvertisementsStorage.UpdateUserById:output_type -> advertisements_storage.UpdateUserByIdResponse
+	39, // 55: advertisements_storage.AdvertisementsStorage.DeleteUserById:output_type -> advertisements_storage.DeleteUserByIdResponse
+	41, // 56: advertisements_storage.AdvertisementsStorage.SearchAdvertisementByTitle:output_type -> advertisements_storage.SearchAdvertisementByTitleResponse
+	39, // [39:57] is the sub-list for method output_type
+	21, // [21:39] is the sub-list for method input_type
 	21, // [21:21] is the sub-list for extension type_name
 	21, // [21:21] is the sub-list for extension extendee
 	0,  // [0:21] is the sub-list for field type_name

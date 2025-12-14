@@ -134,13 +134,6 @@ func (serv *AdvertisementsStorageServer) GetUserByID(ctx context.Context, req *p
 	return serv.usersService.GetUserByID(cancelCtx, req)
 }
 
-func (serv *AdvertisementsStorageServer) GetUserByEmail(ctx context.Context, req *pb.GetUserByEmailRequest) (*pb.GetUserByEmailResponse, error) {
-	cancelCtx, cancel := context.WithTimeout(ctx, 5*time.Second)
-	defer cancel()
-
-	return serv.usersService.GetUserByEmail(cancelCtx, req)
-}
-
 func (serv *AdvertisementsStorageServer) UpdateUserById(ctx context.Context, req *pb.UpdateUserByIdRequest) (*pb.UpdateUserByIdResponse, error) {
 	cancelCtx, cancel := context.WithTimeout(ctx, 5*time.Second)
 	defer cancel()

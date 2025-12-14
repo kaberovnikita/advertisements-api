@@ -2,240 +2,237 @@ syntax = "proto3";
 
 package advertisements_storage;
 
-// JAVA GEN CODE LOCATION + CLASSES + NAME (rapitor3)
 option java_package = "com.rapitor3.ads_service";
 option java_multiple_files = true;
 option java_outer_classname = "AdvertisementsProto";
 
-// GOLANG (NikitaKaberov)
 import "google/protobuf/timestamp.proto";
 
 
 service AdvertisementsStorage {
-    rpc CreateAdvertisement (CreateAdvertisementRequest) returns (CreateAdvertisementResponse);
-    rpc GetAdvertisementById (GetAdvertisementByIdRequest) returns (GetAdvertisementByIdResponse);
-    rpc GetAllAdvertisements (GetAllAdvertisementsRequest) returns (GetAllAdvertisementsResponse);
-    rpc UpdateAdvertisementById (UpdateAdvertisementByIdRequest) returns (UpdateAdvertisementByIdResponse);
-    rpc DeleteAdvertisementByID (DeleteAdvertisementByIDRequest) returns (DeleteAdvertisementByIDResponse);
+  rpc CreateAdvertisement (CreateAdvertisementRequest) returns (CreateAdvertisementResponse);
+  rpc GetAdvertisementById (GetAdvertisementByIdRequest) returns (GetAdvertisementByIdResponse);
+  rpc GetAllAdvertisements (GetAllAdvertisementsRequest) returns (GetAllAdvertisementsResponse);
+  rpc UpdateAdvertisementById (UpdateAdvertisementByIdRequest) returns (UpdateAdvertisementByIdResponse);
+  rpc DeleteAdvertisementByID (DeleteAdvertisementByIDRequest) returns (DeleteAdvertisementByIDResponse);
 
 
-    rpc CreateCategory(CreateCategoryRequest) returns (CreateCategoryResponse);
-    rpc GetCategoryById(GetCategoryByIdRequest) returns (GetCategoryByIdResponse);
-    rpc GetCategoryByAlias(GetCategoryByAliasRequest) returns (GetCategoryByAliasResponse);
-    rpc GetAllCategories(GetAllCategoriesRequest) returns (GetAllCategoriesResponse);
-    rpc UpdateCategoryById(UpdateCategoryByIdRequest) returns(UpdateCategoryByIdResponse);
-    rpc DeleteCategoryById(DeleteCategoryByIDRequest) returns(DeleteCategoryByIDResponse);
+  rpc CreateCategory(CreateCategoryRequest) returns (CreateCategoryResponse);
+  rpc GetCategoryById(GetCategoryByIdRequest) returns (GetCategoryByIdResponse);
+  rpc GetCategoryByAlias(GetCategoryByAliasRequest) returns (GetCategoryByAliasResponse);
+  rpc GetAllCategories(GetAllCategoriesRequest) returns (GetAllCategoriesResponse);
+  rpc UpdateCategoryById(UpdateCategoryByIdRequest) returns(UpdateCategoryByIdResponse);
+  rpc DeleteCategoryById(DeleteCategoryByIDRequest) returns(DeleteCategoryByIDResponse);
 
 
-    rpc RegisterUser(RegisterUserRequest) returns (RegisterUserResponse);
-    rpc LoginUser(LoginUserRequest) returns (LoginUserResponse);
-    rpc GetAllUsers(GetAllUsersRequest) returns (GetAllUsersResponse);
-    rpc GetUserByID(GetUserByIDRequest) returns (GetUserByIdResponse);
-    rpc GetUserByEmail(GetUserByEmailRequest) returns (GetUserByEmailResponse); 
-    rpc UpdateUserById (UpdateUserByIdRequest) returns (UpdateUserByIdResponse);
-    rpc DeleteUserById (DeleteUserByIdRequest) returns (DeleteUserByIdResponse);
+  rpc RegisterUser(RegisterUserRequest) returns (RegisterUserResponse);
+  rpc LoginUser(LoginUserRequest) returns (LoginUserResponse);
+  rpc GetAllUsers(GetAllUsersRequest) returns (GetAllUsersResponse);
+  rpc GetUserByID(GetUserByIDRequest) returns (GetUserByIdResponse);
+  rpc UpdateUserById (UpdateUserByIdRequest) returns (UpdateUserByIdResponse);
+  rpc DeleteUserById (DeleteUserByIdRequest) returns (DeleteUserByIdResponse);
 
-  
-    rpc SearchAdvertisementByTitle(SearchAdvertisementByTitleRequest) returns (SearchAdvertisementByTitleResponse);
+
+  rpc SearchAdvertisementByTitle(SearchAdvertisementByTitleRequest) returns (SearchAdvertisementByTitleResponse);
 };
 
 message Advertisement {
-    int64 id = 1;
-    string title = 2;
-    string description = 3;
-    double price = 4;
-    string currency = 5;
-    int64 category_id = 6;
-    int64 user_id = 7;
-    google.protobuf.Timestamp created_at = 8;
-    google.protobuf.Timestamp updated_at = 9;
+  int64                     id          = 1;
+  string                    title       = 2;
+  string                    description = 3;
+  double                    price       = 4;
+  string                    currency    = 5;
+  int64                     category_id = 6;
+  int64                     user_id     = 7;
+  google.protobuf.Timestamp created_at  = 8;
+  google.protobuf.Timestamp updated_at  = 9;
 }
 
 message CreateAdvertisementRequest {
-    string title = 1;
-    string description = 2;
-    double price = 3;
-    string currency = 4;
-    int64 category_id = 5;
-    int64 user_id = 6;
+  string title       = 1;
+  string description = 2;
+  double price       = 3;
+  string currency    = 4;
+  int64  category_id = 5;
+  int64  user_id     = 6;
 }
 
 message CreateAdvertisementResponse {
-   int64 id = 1;
+  int64 id = 1;
 }
 
 message GetAdvertisementByIdRequest{
-    int64 id = 1;
+  int64 id = 1;
 }
 
 message GetAdvertisementByIdResponse{
-    Advertisement advertisement = 1;
+  Advertisement advertisement = 1;
 }
 
 message GetAllAdvertisementsRequest{};
 
 message GetAllAdvertisementsResponse{
-    repeated Advertisement advertisements = 1;
+  repeated Advertisement advertisements = 1;
 }
 
 message UpdateAdvertisementByIdRequest{
-    int64 id = 1;
-    string title = 2;
-    string description = 3;
-    double price = 4;
-    string currency = 5;
-    int64 category_id = 6;
+  int64  id          = 1;
+  string title       = 2;
+  string description = 3;
+  double price       = 4;
+  string currency    = 5;
+  int64  category_id = 6;
 }
 
 message UpdateAdvertisementByIdResponse{
-    Advertisement advertisement = 1;
+  Advertisement advertisement = 1;
 }
 
 message DeleteAdvertisementByIDRequest{
-    int64 id = 1;
+  int64 id = 1;
 }
 
 message DeleteAdvertisementByIDResponse{};
 
 
 message Category{
-    int64 id = 1;
-    string name = 2;
-    string alias = 3;
-    google.protobuf.Timestamp created_at = 4;
-    google.protobuf.Timestamp updated_at = 5;
+  int64                     id         = 1;
+  string                    name       = 2;
+  string                    alias      = 3;
+  google.protobuf.Timestamp created_at = 4;
+  google.protobuf.Timestamp updated_at = 5;
 }
 
 message CreateCategoryRequest {
-    string name = 1;
-    string alias = 2;
+  string name  = 1;
+  string alias = 2;
 }
 
 message CreateCategoryResponse {
-   int64 id = 1;
+  int64 id = 1;
 }
 
 message GetCategoryByIdRequest{
-    int64 id = 1;
+  int64 id = 1;
 }
 
 message GetCategoryByIdResponse{
-    Category category = 1;
+  Category category = 1;
 }
 
 message GetCategoryByAliasRequest{
-    string alias = 1;
+  string alias = 1;
 }
 
 message GetCategoryByAliasResponse{
-    Category category = 1;
+  Category category = 1;
 }
 
 message GetAllCategoriesRequest{};
 
 message GetAllCategoriesResponse{
-    repeated Category categories = 1;
+  repeated Category categories = 1;
 }
 
 message UpdateCategoryByIdRequest{
-    int64 id = 1;
-    string name = 2;
-    string alias = 3;
+  int64  id    = 1;
+  string name  = 2;
+  string alias = 3;
 }
 
 message UpdateCategoryByIdResponse{
-    Category category = 1;
+  Category category = 1;
 }
 
 message DeleteCategoryByIDRequest{
-    int64 id = 1;
+  int64 id = 1;
 }
 
 message DeleteCategoryByIDResponse{};
 
 
 enum UserRole {
-    USER_ROLE_USER = 0;
-    USER_ROLE_ADMIN = 1;
+  USER_ROLE_USER  = 0;
+  USER_ROLE_ADMIN = 1;
 }
 
 message User {
-    int64 id = 1;
-    string email = 2;
-    string password_hash = 3;
-    string first_name = 4;
-    string last_name = 5;
-    optional UserRole role = 6;
-    google.protobuf.Timestamp created_at = 7;
-    google.protobuf.Timestamp updated_at = 8;
+  int64                     id            = 1;
+  string                    email         = 2;
+  string                    password_hash = 3;
+  string                    first_name    = 4;
+  string                    last_name     = 5;
+  optional UserRole         role          = 6;
+  google.protobuf.Timestamp created_at    = 7;
+  google.protobuf.Timestamp updated_at    = 8;
 }
 
 message RegisterUserRequest {
-    string email = 1;
-    string password = 2;
-    string first_name = 4;
-    string last_name = 5;
-    optional UserRole role = 6;
+  string            email      = 1;
+  string            password   = 2;
+  string            first_name = 4;
+  string            last_name  = 5;
+  optional UserRole role       = 6;
 }
 
 message RegisterUserResponse {
-    int64 id = 1;
+  int64 id = 1;
 }
 
 message LoginUserRequest{
-    string email = 1;
-    string password = 2;
+  string email    = 1;
+  string password = 2;
 }
 
 message LoginUserResponse {
-    string access_token = 1;
+  string access_token = 1;
 }
 
 message GetAllUsersRequest{}
 
 message GetAllUsersResponse{
-    repeated User users = 1;
+  repeated User users = 1;
 }
 
 message GetUserByEmailRequest {
-    string email = 1;
+  string email = 1;
 }
 
 message GetUserByEmailResponse {
-    User user = 1;
+  User user = 1;
 }
 
 message GetUserByIDRequest{
-    int64 id = 1;
+  int64 id = 1;
 }
 
 message GetUserByIdResponse {
-    User user = 1;
+  User user = 1;
 }
 
 message UpdateUserByIdRequest{
-    int64 id = 1;
-    string email = 2;
-    string password_hash = 3;
-    string first_name = 4;
-    string last_name = 5;
-    optional UserRole role = 6;
+  int64             id            = 1;
+  string            email         = 2;
+  string            password_hash = 3;
+  string            first_name    = 4;
+  string            last_name     = 5;
+  optional UserRole role          = 6;
 }
 
 message UpdateUserByIdResponse{
-    User user = 1;
+  User user = 1;
 }
 
 message DeleteUserByIdRequest{
-     int64 id = 1;
+  int64 id = 1;
 }
 
 message DeleteUserByIdResponse{}
 
 message SearchAdvertisementByTitleRequest{
-    string title = 1;
+  string title = 1;
 }
 
 message SearchAdvertisementByTitleResponse{
-   repeated Advertisement advertisement = 1;
+  repeated Advertisement advertisement = 1;
 }

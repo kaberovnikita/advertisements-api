@@ -23,7 +23,6 @@ func NewUsersHandler(router *http.ServeMux, userClient *usersclient.UserClient) 
 
 	router.HandleFunc("POST /api/v1/users/register", handler.Register)
 	router.HandleFunc("POST /api/v1/users/login", handler.Login)
-	router.HandleFunc("GET /api/v1/users/email", handler.GetUserByEmail)
 	router.HandleFunc("GET /api/v1/users", handler.GetAllUsers)
 	router.HandleFunc("GET /api/v1/users/{id}", handler.GetUserById)
 	router.HandleFunc("PATCH /api/v1/users/{id}", handler.UpdateUserByID)
@@ -68,25 +67,6 @@ func (h *usersHandler) Login(w http.ResponseWriter, r *http.Request) {
 	}
 
 	res.ResJson(w, accessToken, http.StatusOK)
-}
-
-func (h *usersHandler) GetUserByEmail(w http.ResponseWriter, r *http.Request) {
-	ctx, cancel := context.WithTimeout(r.Context(), 5*time.Second)
-	defer cancel()
-
-	email := r.URL.Query().Get("email")
-	if len(email) == 0 {
-		res.ErrResJson(w, "title email is required", http.StatusBadRequest)
-		return
-	}
-
-	user, err := h.userClient.GetUserByEmail(ctx, email)
-	if err != nil {
-		res.ErrResJson(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-
-	res.ResJson(w, user, http.StatusOK)
 }
 
 func (h *usersHandler) GetUserById(w http.ResponseWriter, r *http.Request) {

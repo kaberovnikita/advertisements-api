@@ -8,9 +8,11 @@ import (
 	"os/signal"
 	"syscall"
 
+	adsclient "api-gateway/internal/clients/ads"
 	categoryclient "api-gateway/internal/clients/category"
 	searchclient "api-gateway/internal/clients/search"
 	usersclient "api-gateway/internal/clients/users"
+	adshandler "api-gateway/internal/handlers/ads"
 	categoryhandler "api-gateway/internal/handlers/category"
 	searchhandler "api-gateway/internal/handlers/search"
 	usershandler "api-gateway/internal/handlers/users"
@@ -20,6 +22,7 @@ func main() {
 	categoryAddr := os.Getenv("CATEGORY_SERVICE_ADDR")
 	userAddr := os.Getenv("USER_SERVICE_ADDR")
 	searchAddr := os.Getenv("SEARCH_SERVICE_ADDR")
+	adsAddr := os.Getenv("ADS_SERVICE_ADDR")
 
 	categoryClient, err := categoryclient.NewCategoryClient(categoryAddr)
 	if err != nil {
@@ -39,11 +42,18 @@ func main() {
 	}
 	defer searchClient.Close()
 
+	adsClient, err := adsclient.NewAdsClient(adsAddr)
+	if err != nil {
+		log.Fatalf("Failed to connect to ads service: %s", err.Error())
+	}
+	defer adsClient.Close()
+
 	router := http.NewServeMux()
 
 	categoryhandler.NewCategoryHandler(router, categoryClient)
 	usershandler.NewUsersHandler(router, usersClient)
 	searchhandler.NewSearchHandler(router, searchClient)
+	adshandler.NewAdsHandler(router, adsClient)
 
 	server := http.Server{
 		Addr:    ":8004",
