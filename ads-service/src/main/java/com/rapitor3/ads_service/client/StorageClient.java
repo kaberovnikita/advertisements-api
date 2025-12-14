@@ -26,6 +26,7 @@ public class StorageClient {
 
         CreateAdvertisementRequest request = CreateAdvertisementRequest.newBuilder()
                 .setTitle(title)
+                .setDescription(description)
                 .setPrice(price)
                 .setCurrency(currency)
                 .setCategoryId(category_id)
