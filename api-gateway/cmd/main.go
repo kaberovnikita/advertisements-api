@@ -20,9 +20,23 @@ import (
 
 func main() {
 	categoryAddr := os.Getenv("CATEGORY_SERVICE_ADDR")
+	if categoryAddr == "" {
+		categoryAddr = "localhost:8001"
+	}
+
 	userAddr := os.Getenv("USER_SERVICE_ADDR")
+	if userAddr == "" {
+		userAddr = "localhost:8003"
+	}
+
 	searchAddr := os.Getenv("SEARCH_SERVICE_ADDR")
+	if searchAddr == "" {
+		searchAddr = "localhost:8002"
+	}
 	adsAddr := os.Getenv("ADS_SERVICE_ADDR")
+	if adsAddr == "" {
+		adsAddr = "localhost:8005"
+	}
 
 	categoryClient, err := categoryclient.NewCategoryClient(categoryAddr)
 	if err != nil {

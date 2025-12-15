@@ -12,16 +12,13 @@
 
 Перед запуском необходимо создать файл `.env` в корне проекта.
 
-### 1. Создайте в корне проекта файл`.env`
+### 1. Создайте в корне проекта файл`.env` и заполните его
 
-### 2. Пример содержимого `.env`
-
-```env
+```
 DB_USER=postgres
 DB_PASSWORD=1234
 DB_NAME=ads
 JWT_SECRET=SuperSecretKeyForJWT@2024!WithSecureRandomBytes12345
-DB_URL=postgres://postgres:1234@db:5432/ads?sslmode=disable
 ```
 
 ### Запуск через Docker Compose(первый раз)
@@ -59,3 +56,17 @@ docker compose ps
 ```bash
 docker compose logs -f
 ```
+
+### Команда проекта
+
+```
+Каберов Никита
+Бубеков Даниль
+Макарова Ксения
+Пасашков Юрий
+Чурпанова Айсура
+```
+
+### Лицензия
+MIT
+

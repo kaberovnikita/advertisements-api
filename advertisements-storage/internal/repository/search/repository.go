@@ -34,11 +34,6 @@ func (r *searchRepository) Search(ctx context.Context, req *pb.SearchAdvertiseme
 			"a.user_id",
 			"a.created_at",
 			"a.updated_at",
-			"c.name as category_name",
-			"c.alias as category_alias",
-			"u.email as user_email",
-			"u.first_name as user_first_name",
-			"u.last_name as user_last_name",
 		).
 		From("advertisements a").
 		Join("categories c ON a.category_id = c.id").

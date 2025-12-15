@@ -146,4 +146,6 @@ func (h *categoryHandler) DeleteCategoryByID(w http.ResponseWriter, r *http.Requ
 		res.ErrResJson(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
+
+	res.ResJson(w, nil, http.StatusNoContent)
 }

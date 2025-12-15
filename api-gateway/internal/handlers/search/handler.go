@@ -37,5 +37,5 @@ func (h *SearchHandler) SeatchAdvertisementsByTitle(w http.ResponseWriter, r *ht
 		return
 	}
 
-	res.ResJson(w, ads, http.StatusCreated)
+	res.ResJson(w, ads, http.StatusOK)
 }
