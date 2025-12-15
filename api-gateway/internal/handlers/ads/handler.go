@@ -67,7 +67,7 @@ func (h *adsHandler) GetAdvertisementByID(w http.ResponseWriter, r *http.Request
 
 	id, err := strconv.Atoi(param)
 	if err != nil {
-		res.ErrResJson(w, err.Error(), http.StatusInternalServerError)
+		res.ErrResJson(w, err.Error(), http.StatusBadRequest)
 		return
 	}
 
@@ -145,4 +145,6 @@ func (h *adsHandler) DeleteAdvertisementByID(w http.ResponseWriter, r *http.Requ
 		res.ErrResJson(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
+
+	res.ResJson(w, nil, http.StatusNoContent)
 }

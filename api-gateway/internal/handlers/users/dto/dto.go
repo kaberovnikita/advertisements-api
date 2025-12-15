@@ -12,6 +12,10 @@ type RegisterDto struct {
 	Role      int32  `json:"role" validate:"omitempty"`
 }
 
+type CreateUserDto struct {
+	Id int64 `json:"id"`
+}
+
 type LoginDto struct {
 	Email    string `json:"email" validate:"required"`
 	Password string `json:"password" validate:"required"`

@@ -47,7 +47,11 @@ func (h *usersHandler) Register(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	res.ResJson(w, id, http.StatusCreated)
+	data := &usersdto.CreateUserDto{
+		Id: id,
+	}
+
+	res.ResJson(w, data, http.StatusCreated)
 }
 
 func (h *usersHandler) Login(w http.ResponseWriter, r *http.Request) {
@@ -147,4 +151,6 @@ func (h *usersHandler) DeleteUserByID(w http.ResponseWriter, r *http.Request) {
 		res.ErrResJson(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
+
+	res.ResJson(w, nil, http.StatusNoContent)
 }

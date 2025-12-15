@@ -1,9 +1,11 @@
 ### 1. Создайте .env файл
 
-В корне `advertisements-service` создайте файл `.env`, добавьте:
+В корне `advertisements-storage` создайте файл `.env`, добавьте:
 
+```
 DB_URL=postgres://postgres:1234@localhost:5432/ads?sslmode=disable
 JWT_SECRET=SuperSecretKeyForJWT@2024!WithSecureRandomBytes12345
+```
 
 ### Сборка и запуск
 
