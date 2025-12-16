@@ -7,7 +7,6 @@
 ## Описание
 
 [![Swagger](https://img.shields.io/badge/Swagger-UI-green?style=for-the-badge&logo=swagger&logoColor=white)](https://app.swaggerhub.com/apis-docs/snowleopards/techfind-marketplace-api-gateway/1.1.0)
-
 [![Jira](https://img.shields.io/badge/Jira-0052CC?style=for-the-badge&logo=jira&logoColor=white)](https://snow-leopards.atlassian.net/jira/software/projects/BB/boards/1/backlog)
 
 `advertisements-api` — это API-сервис для работы с объявлениями.
