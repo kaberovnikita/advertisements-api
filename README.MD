@@ -6,7 +6,13 @@
 
 ## Описание
 
+[![Swagger](https://img.shields.io/badge/Swagger-UI-green?style=for-the-badge&logo=swagger&logoColor=white)](https://app.swaggerhub.com/apis-docs/snowleopards/techfind-marketplace-api-gateway/1.1.0)
+
 `advertisements-api` — это API-сервис для работы с объявлениями.
+
+## Архитектура
+
+![Схема архитектуры](./public/img/scheme.jpg)
 
 ## Настройка переменных окружения
 
