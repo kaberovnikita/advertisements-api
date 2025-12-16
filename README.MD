@@ -8,9 +8,34 @@
 
 [![Swagger](https://img.shields.io/badge/Swagger-UI-green?style=for-the-badge&logo=swagger&logoColor=white)](https://app.swaggerhub.com/apis-docs/snowleopards/techfind-marketplace-api-gateway/1.1.0)
 
+[![Jira](https://img.shields.io/badge/Jira-ADS--29-0052CC?style=for-the-badge&logo=jira&logoColor=white)](https://snow-leopards.atlassian.net/jira/software/projects/BB/boards/1/backlog)
+
 `advertisements-api` — это API-сервис для работы с объявлениями.
 
 ## Архитектура
+
+### api-gateway
+REST API для клиентов. Принимает HTTP/JSON, валидирует запросы и проксирует их в backend по gRPC, возвращая ответы в JSON.
+
+### ads-service
+Доменная логика объявлений. Реализует операции CRUD для объявлений и через gRPC обращается к `advertisements-storage` для чтения и записи данных.
+
+### category-service
+Сервис категорий. Обрабатывает создание, получение, обновление и удаление категорий и проксирует запросы к `advertisements-storage` по gRPC.
+
+### search-service
+Сервис поиска объявлений. Принимает поисковые запросы (например, по title) и выполняет поиск через `advertisements-storage` (в текущей версии — SQL в Postgres, в будущем может быть заменён на поисковый движок).
+
+### users-service
+Сервис пользователей и авторизации. Отвечает за регистрацию, логин (JWT) и работу с профилем, а данные и проверку учетных данных выполняет через `advertisements-storage`.
+
+### advertisements-storage
+Единый сервис доступа к данным. Реализует gRPC API и содержит всю работу с Postgres (репозитории и SQL) для пользователей, категорий, объявлений и поиска.
+
+### db (PostgreSQL)
+База данных проекта. Хранит пользователей, категории и объявления, а также ограничения и индексы (email, alias и т.п.).
+
+### Схема архитектуры
 
 ![Схема архитектуры](./public/img/scheme.jpg)
 
